@@ -2,7 +2,7 @@
 //  UsefulMapApp.swift
 //  UsefulMap
 //
-//  Created by Dmitry Zasenko on 23.11.22.
+//  Created by Dmitry Zasenko on 22.11.22.
 //
 
 import SwiftUI
