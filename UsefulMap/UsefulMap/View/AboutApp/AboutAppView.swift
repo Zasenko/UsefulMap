@@ -17,10 +17,7 @@ struct AboutAppView: View {
 
     var body: some View {
         VStack {
-            Text("О приложении")
-                .foregroundColor(.blue)
-                .font(.title)
-                .padding(.top, 20)
+            LogoSubView()
             TabView {
                 WelcomeCardView(card: viewModel.cards[0])
                     .tag(0)

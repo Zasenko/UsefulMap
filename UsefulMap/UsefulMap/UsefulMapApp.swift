@@ -11,7 +11,7 @@ import SwiftUI
 struct UsefulMapApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LaunchView()
         }
     }
 }

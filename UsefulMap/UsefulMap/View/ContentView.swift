@@ -7,25 +7,17 @@
 
 import SwiftUI
 
-struct ContentView: View {
-    
-    //MARK: - Properties
+struct Launch2View: View {
 
-    @AppStorage("isFirstTime") var isFirstTime: Bool = true
-    
     //MARK: - Body
 
     var body: some View {
-        if isFirstTime {
-            AboutAppView()
-        } else {
-            AutentificationView()
-        }
+//        if isFirstTime {
+//            AboutAppView()
+//        } else {
+//            AutentificationView()
+//        }
+        LaunchView()
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
