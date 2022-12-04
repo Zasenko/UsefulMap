@@ -25,7 +25,7 @@ struct WelcomeCardView: View {
                 .padding()
                 .padding()
             Text(card.text)
-                .font(.title2)
+                .font(.system(size: 16))
                 .monospacedDigit()
                 .multilineTextAlignment(.center)
                 .padding(.bottom)
