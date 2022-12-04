@@ -13,6 +13,7 @@ struct LoginView: View {
     
     let userViewModel: UserViewModel
     let networkManager: NetworkManager
+    let screeenWidth = UIScreen.main.bounds.width
     
     @Binding var isLocationViewOpen: Bool
     
@@ -25,35 +26,21 @@ struct LoginView: View {
     
     var body: some View {
         VStack {
-            Image("logo")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 100, height: 100)
-            Text("UsefulMap")
-                .bold()
-                .font(.title3)
+            LogoSubView()
+            Spacer().frame(height: 50)
             Text(error)
+                .foregroundColor(.red)
                 .bold()
+                .multilineTextAlignment(.center)
                 .font(.headline)
-                .frame(height: 70)
+                .frame(width: screeenWidth/2, height: 70)
             Group {
-                TextField("email", text: $login)
-                SecureField("password", text: $password)
+                TextField("Email", text: $login, onEditingChanged: {_ in error = ""})
+                SecureField("Password", text: $password)
             }
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .padding(.horizontal, 40)
-            HStack {
-                Button {
-                    isRegistrationViewOpen = true
-                } label: {
-                    Text("Регистрация")
-                        .foregroundColor(.white)
-                        .font(.callout.bold())
-                        .padding(10)
-                        .padding(.horizontal)
-                        .background(.green)
-                        .cornerRadius(10)
-                }
+            VStack {
                 Button {
                     Task {
                         await login(login: login, password: password)
@@ -61,19 +48,28 @@ struct LoginView: View {
                     }
                 } label: {
                     Text("Войти")
-                        .foregroundColor(.white)
-                        .font(.callout.bold())
-                        .padding(10)
-                        .padding(.horizontal)
-                        .background(.green)
-                        .cornerRadius(10)
+                        .font(.headline)
+                        .frame(width: screeenWidth/2)
                 }
-            }//-HStack
+                .tint(.green)
+                .buttonStyle(.borderedProminent)
+                
+                Button {
+                    isRegistrationViewOpen = true
+                } label: {
+                    Text("Регистрация")
+                        .font(.headline)
+                        .frame(width: screeenWidth/2)
+                }
+                .tint(.green)
+                .buttonStyle(.borderedProminent)
+                
+            }//-VStack with buttons
             .padding()
             Button {
                 isLocationViewOpen = true
             } label: {
-                Text("попустить")
+                Text("Пропустить")
                     .foregroundColor(.gray)
             }
             Spacer()
@@ -88,7 +84,7 @@ struct LoginView: View {
         .fullScreenCover(isPresented: $isRegistrationViewOpen) {
             isLocationViewOpen = userViewModel.isUserLoggedIn()
         } content: {
-            RegistrationView(networkManager: networkManager, isRegistrationViewOpen: $isRegistrationViewOpen)
+            RegistrationView(networkManager: networkManager, userViewModel: userViewModel, isRegistrationViewOpen: $isRegistrationViewOpen, isLocationViewOpen: $isLocationViewOpen)
         }
     }
     
@@ -98,6 +94,8 @@ struct LoginView: View {
             let loginResult = try await networkManager.login(login: login, password: password)
             if loginResult.result == 0 {
                 error = loginResult.error ?? ""
+                self.login = ""
+                self.password = ""
             } else {
                 guard let user = loginResult.user else {return}
                 userViewModel.saveUser(user: user)
@@ -107,9 +105,4 @@ struct LoginView: View {
         }
     }
 }
-//
-//struct LoginView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        LoginView()
-//    }
-//}
+

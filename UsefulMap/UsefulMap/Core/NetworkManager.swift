@@ -44,6 +44,28 @@ extension NetworkManager {
         return decodedLoginResult
     }
     
+    
+    func registration(login: String, password: String) async throws -> RegistrationResult {
+        var urlComponents: URLComponents {
+            var components = URLComponents()
+            components.scheme = scheme
+            components.host = host
+            components.path = "/registration.php"
+            components.queryItems = [
+                URLQueryItem(name: "user_login", value: login),
+                URLQueryItem(name: "user_password", value: password),
+                URLQueryItem(name: "user_name", value: String(password.split(separator: "@").first ?? ""))
+            ]
+            return components
+        }
+        guard let url = urlComponents.url else { throw NetworkManagerErrors.bedUrl }
+        let (data, response) = try await URLSession.shared.data(from: url)
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw NetworkManagerErrors.invalidStatusCode }
+        guard let decodedRegistrationResult = try? JSONDecoder().decode(RegistrationResult.self, from: data) else { throw NetworkManagerErrors.decoderError }
+        return decodedRegistrationResult
+    }
+    
+    
     func getAllCountries() async throws -> Countries {
         var urlComponents: URLComponents {
             var components = URLComponents()

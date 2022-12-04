@@ -16,7 +16,7 @@ struct LaunchView: View {
     @State var rotateLogo = false
     @State var moveLogoAndShowAppName = false
     @State var showAppName = false
-    @State var isAnimationOnLaunchViewEnded = false
+    @State var isAnimationOnLaunchViewEnded = true
     
     let logoSize:CGFloat = GlobalProperties().logoSize
     let decreaseLogo: CGFloat = 3
@@ -29,7 +29,7 @@ struct LaunchView: View {
     
     var body: some View {
         if isAnimationOnLaunchViewEnded {
-            if !isFirstTime {
+            if isFirstTime {
                 AboutAppView()
             } else {
                 AutentificationView()
