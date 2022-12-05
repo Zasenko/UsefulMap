@@ -43,6 +43,8 @@
 		234D787A293B82D400212ED8 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234D7879293B82D400212ED8 /* LaunchView.swift */; };
 		234D787D293B8CB500212ED8 /* LogoSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234D787C293B8CB500212ED8 /* LogoSubView.swift */; };
 		234D787F293B8D8400212ED8 /* GlobalProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234D787E293B8D8400212ED8 /* GlobalProperties.swift */; };
+		23676571293CE8AB00B4E081 /* Ragistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23676570293CE8AB00B4E081 /* Ragistration.swift */; };
+		23676574293CF1DB00B4E081 /* ClearUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23676573293CF1DB00B4E081 /* ClearUserDefaults.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +86,8 @@
 		234D7879293B82D400212ED8 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		234D787C293B8CB500212ED8 /* LogoSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoSubView.swift; sourceTree = "<group>"; };
 		234D787E293B8D8400212ED8 /* GlobalProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalProperties.swift; sourceTree = "<group>"; };
+		23676570293CE8AB00B4E081 /* Ragistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ragistration.swift; sourceTree = "<group>"; };
+		23676573293CF1DB00B4E081 /* ClearUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearUserDefaults.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,7 +209,7 @@
 				0F0F1FE02936285A006F9901 /* CitiesView.swift */,
 				0F74B44B293791A2001CB052 /* PlacesViews */,
 				0F0F1FF329365B58006F9901 /* Place */,
-				234D787B293B8C8600212ED8 /*  GeneralAdditionalViews  */,
+				234D787B293B8C8600212ED8 /* GeneralAdditionalViews  */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -225,6 +229,7 @@
 			children = (
 				0F75E332292CE3E200EE7890 /* WelcomeCard.swift */,
 				0F75E33F292CF3CC00EE7890 /* User.swift */,
+				23676570293CE8AB00B4E081 /* Ragistration.swift */,
 				0F42D7F8292E7BF3007AFEA4 /* Contries.swift */,
 				0F0F1FD6293626DC006F9901 /* Cities.swift */,
 				0F51F592293B3FB800F85619 /* DecodedPlace.swift */,
@@ -232,6 +237,7 @@
 				0F0F1FE529363C88006F9901 /* PlaceType.swift */,
 				0F0F1FDE29362815006F9901 /* Comments.swift */,
 				234D787E293B8D8400212ED8 /* GlobalProperties.swift */,
+				23676572293CF1BE00B4E081 /* AdditionalMethods */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -245,12 +251,20 @@
 			path = AboutApp;
 			sourceTree = "<group>";
 		};
-		234D787B293B8C8600212ED8 /*  GeneralAdditionalViews  */ = {
+		234D787B293B8C8600212ED8 /* GeneralAdditionalViews  */ = {
 			isa = PBXGroup;
 			children = (
 				234D787C293B8CB500212ED8 /* LogoSubView.swift */,
 			);
-			path = " GeneralAdditionalViews ";
+			path = "GeneralAdditionalViews ";
+			sourceTree = "<group>";
+		};
+		23676572293CF1BE00B4E081 /* AdditionalMethods */ = {
+			isa = PBXGroup;
+			children = (
+				23676573293CF1DB00B4E081 /* ClearUserDefaults.swift */,
+			);
+			path = AdditionalMethods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -355,12 +369,14 @@
 				0F75E338292CE71B00EE7890 /* AboutAppViewModel.swift in Sources */,
 				0F75E336292CE42100EE7890 /* WelcomeCardView.swift in Sources */,
 				0F74B4502937A566001CB052 /* LocationManager.swift in Sources */,
+				23676574293CF1DB00B4E081 /* ClearUserDefaults.swift in Sources */,
 				0F75E33E292CF10700EE7890 /* LocationView.swift in Sources */,
 				0F5BA06B2938EF4F00F42213 /* Momento.swift in Sources */,
 				0F51F593293B3FB800F85619 /* DecodedPlace.swift in Sources */,
 				0F75E340292CF3CC00EE7890 /* User.swift in Sources */,
 				0F75E33A292CEF4900EE7890 /* RegistrationView.swift in Sources */,
 				234D787F293B8D8400212ED8 /* GlobalProperties.swift in Sources */,
+				23676571293CE8AB00B4E081 /* Ragistration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
