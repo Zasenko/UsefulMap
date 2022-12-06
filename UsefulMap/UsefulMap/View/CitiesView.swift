@@ -53,6 +53,8 @@ struct CitiesView: View {
         }.tint(.black)
     }//-body
     
+    //MARK: - Functions
+    
     @MainActor
     func fetchCitiesByCountryId() async -> Cities {
         do {

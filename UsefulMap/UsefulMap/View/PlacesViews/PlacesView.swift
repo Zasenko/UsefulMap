@@ -53,6 +53,8 @@ struct PlacesView: View {
         .tint(.black)
     }
     
+    //MARK: - Functions
+    
     @MainActor
     func fetchPlacesByCityId(cityId: Int) async -> DecodedPlaces {
         do {

@@ -18,7 +18,7 @@ class Place: NSObject, MKAnnotation {
     let coordinate: CLLocationCoordinate2D
     var photo: String //TODO: UIImage
     var distance: Float?
-    //TODO: доделдать можель
+    //TODO: доделдать модель
 //    var country: String?
 //    var city: String?
 //    var description: String?

@@ -12,8 +12,7 @@ struct LogoSubView: View {
     
     //MARK: - Properties
     
-    let logoSize = GlobalProperties().logoSize
-    
+    let logoSize = GlobalProperties.logoSize
     
     //MARK: - Body
     

@@ -37,13 +37,18 @@ extension NetworkManager {
             ]
             return components
         }
-        guard let url = urlComponents.url else { throw NetworkManagerErrors.bedUrl }
+        guard let url = urlComponents.url else {
+            throw NetworkManagerErrors.bedUrl
+        }
         let (data, response) = try await URLSession.shared.data(from: url)
-        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw NetworkManagerErrors.invalidStatusCode }
-        guard let decodedLoginResult = try? JSONDecoder().decode(LoginResult.self, from: data) else { throw NetworkManagerErrors.decoderError }
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            throw NetworkManagerErrors.invalidStatusCode
+        }
+        guard let decodedLoginResult = try? JSONDecoder().decode(LoginResult.self, from: data) else {
+            throw NetworkManagerErrors.decoderError
+        }
         return decodedLoginResult
     }
-    
     
     func registration(login: String, password: String) async throws -> RegistrationResult {
         var urlComponents: URLComponents {
@@ -54,17 +59,22 @@ extension NetworkManager {
             components.queryItems = [
                 URLQueryItem(name: "user_login", value: login),
                 URLQueryItem(name: "user_password", value: password),
-                URLQueryItem(name: "user_name", value: String(password.split(separator: "@").first ?? ""))
+                URLQueryItem(name: "user_name", value: String(login.split(separator: "@").first ?? ""))
             ]
             return components
         }
-        guard let url = urlComponents.url else { throw NetworkManagerErrors.bedUrl }
+        guard let url = urlComponents.url else {
+            throw NetworkManagerErrors.bedUrl
+        }
         let (data, response) = try await URLSession.shared.data(from: url)
-        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw NetworkManagerErrors.invalidStatusCode }
-        guard let decodedRegistrationResult = try? JSONDecoder().decode(RegistrationResult.self, from: data) else { throw NetworkManagerErrors.decoderError }
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            throw NetworkManagerErrors.invalidStatusCode
+        }
+        guard let decodedRegistrationResult = try? JSONDecoder().decode(RegistrationResult.self, from: data) else {
+            throw NetworkManagerErrors.decoderError
+        }
         return decodedRegistrationResult
     }
-    
     
     func getAllCountries() async throws -> Countries {
         var urlComponents: URLComponents {
@@ -72,13 +82,18 @@ extension NetworkManager {
             components.scheme = scheme
             components.host = host
             components.path = "/get_all_countries.php"
-            
             return components
         }
-        guard let url = urlComponents.url else { throw NetworkManagerErrors.bedUrl }
+        guard let url = urlComponents.url else {
+            throw NetworkManagerErrors.bedUrl
+        }
         let (data, response) = try await URLSession.shared.data(from: url)
-        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw NetworkManagerErrors.invalidStatusCode }
-        guard let decodedCountries = try? JSONDecoder().decode(Countries.self, from: data) else { throw NetworkManagerErrors.decoderError }
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            throw NetworkManagerErrors.invalidStatusCode
+        }
+        guard let decodedCountries = try? JSONDecoder().decode(Countries.self, from: data) else {
+            throw NetworkManagerErrors.decoderError
+        }
         return decodedCountries
     }
     
@@ -93,10 +108,16 @@ extension NetworkManager {
             ]
             return components
         }
-        guard let url = urlComponents.url else { throw NetworkManagerErrors.bedUrl }
+        guard let url = urlComponents.url else {
+            throw NetworkManagerErrors.bedUrl
+        }
         let (data, response) = try await URLSession.shared.data(from: url)
-        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw NetworkManagerErrors.invalidStatusCode }
-        guard let decodedCities = try? JSONDecoder().decode(Cities.self, from: data) else { throw NetworkManagerErrors.decoderError }
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            throw NetworkManagerErrors.invalidStatusCode
+        }
+        guard let decodedCities = try? JSONDecoder().decode(Cities.self, from: data) else {
+            throw NetworkManagerErrors.decoderError
+        }
         return decodedCities
     }
     
@@ -111,10 +132,16 @@ extension NetworkManager {
             ]
             return components
         }
-        guard let url = urlComponents.url else { throw NetworkManagerErrors.bedUrl }
+        guard let url = urlComponents.url else {
+            throw NetworkManagerErrors.bedUrl
+        }
         let (data, response) = try await URLSession.shared.data(from: url)
-        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw NetworkManagerErrors.invalidStatusCode }
-        guard let decodedPlaces = try? JSONDecoder().decode(DecodedPlaces.self, from: data) else { throw NetworkManagerErrors.decoderError }
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            throw NetworkManagerErrors.invalidStatusCode
+        }
+        guard let decodedPlaces = try? JSONDecoder().decode(DecodedPlaces.self, from: data) else {
+            throw NetworkManagerErrors.decoderError
+        }
         return decodedPlaces
     }
     
@@ -129,10 +156,16 @@ extension NetworkManager {
             ]
             return components
         }
-        guard let url = urlComponents.url else { throw NetworkManagerErrors.bedUrl }
+        guard let url = urlComponents.url else {
+            throw NetworkManagerErrors.bedUrl
+        }
         let (data, response) = try await URLSession.shared.data(from: url)
-        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw NetworkManagerErrors.invalidStatusCode }
-        guard let decodedPlace = try? JSONDecoder().decode(DecodedPlace.self, from: data) else { throw NetworkManagerErrors.decoderError }
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            throw NetworkManagerErrors.invalidStatusCode
+        }
+        guard let decodedPlace = try? JSONDecoder().decode(DecodedPlace.self, from: data) else {
+            throw NetworkManagerErrors.decoderError
+        }
         return decodedPlace
     }
     
@@ -149,11 +182,16 @@ extension NetworkManager {
             ]
             return components
         }
-        guard let url = urlComponents.url else { throw NetworkManagerErrors.bedUrl }
+        guard let url = urlComponents.url else {
+            throw NetworkManagerErrors.bedUrl
+        }
         let (data, response) = try await URLSession.shared.data(from: url)
-        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { throw NetworkManagerErrors.invalidStatusCode }
-        guard let decodedPlaces = try? JSONDecoder().decode(DecodedPlaces.self, from: data) else { throw NetworkManagerErrors.decoderError }
-        print(decodedPlaces)
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            throw NetworkManagerErrors.invalidStatusCode
+        }
+        guard let decodedPlaces = try? JSONDecoder().decode(DecodedPlaces.self, from: data) else {
+            throw NetworkManagerErrors.decoderError
+        }
         return decodedPlaces
     }
 }

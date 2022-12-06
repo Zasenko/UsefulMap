@@ -20,7 +20,7 @@ class UserViewModel {
     //MARK: - Init
     
     init() {
-        self.user = self.userMomento.loaduser()
+        self.user = self.userMomento.loadUser()
     }
 }
 
@@ -34,10 +34,6 @@ extension UserViewModel {
     }
     
     func isUserLoggedIn() -> Bool {
-        if user.id != nil {
-            return true
-        } else {
-            return false
-        }
+        return user.id != nil
     }
 }

@@ -14,6 +14,8 @@ struct AutentificationView: View {
     let userViewModel = UserViewModel()
     let networkManager = NetworkManager()
     
+    //MARK: - Private properties
+    
     @State private var isLocationViewOpen = false
     
     //MARK: - Body

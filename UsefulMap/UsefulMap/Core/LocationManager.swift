@@ -12,7 +12,7 @@ class LocationManager: NSObject, ObservableObject {
     
     //MARK: - Properties
     
-    @Published var userLocation: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 48.26378869152448, longitude: 16.45253541423157)
+    @Published var userLocation = CLLocationCoordinate2D()
     @Published var authorizationStatus: CLAuthorizationStatus
     
     //MARK: - Private properties
@@ -35,8 +35,6 @@ class LocationManager: NSObject, ObservableObject {
     }
 }
 
-//MARK: - Delegate
-
 extension LocationManager: CLLocationManagerDelegate {
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
@@ -45,17 +43,19 @@ extension LocationManager: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         manager.startUpdatingLocation()
-        guard let location = locations.last?.coordinate else { return }
+        guard let location = locations.last?.coordinate else {
+            return
+        }
         DispatchQueue.main.async {
             self.userLocation = location
             self.locationManager.stopUpdatingLocation()
         }
     }
 }
-    
-//MARK: - Private functions
 
 extension LocationManager {
+    
+    //MARK: - Private functions
     
     private func checkLocationAutorization() {
         switch locationManager.authorizationStatus {

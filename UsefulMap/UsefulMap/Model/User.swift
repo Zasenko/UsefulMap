@@ -14,10 +14,6 @@ struct LoginResult: Codable {
 }
 
 struct User: Codable, Identifiable {
-    var id: Int? = nil
-    var name: String? = nil
-    var likedComments: [UserComment]? = nil
-    var savedPlaces: [UserPlace]? = nil
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -25,6 +21,11 @@ struct User: Codable, Identifiable {
         case likedComments = "liked_comments"
         case savedPlaces = "saved_places"
     }
+    
+    var id: Int? = nil
+    var name: String? = nil
+    var likedComments: [UserComment]? = nil
+    var savedPlaces: [UserPlace]? = nil
 }
 
 struct UserComment: Codable, Identifiable {

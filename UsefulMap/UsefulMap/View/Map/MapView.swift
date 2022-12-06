@@ -37,7 +37,6 @@ struct MapView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        
         var annotations: [MKAnnotation] = []
         var mapLocations: [CLLocationCoordinate2D] = [userCoordinates]
         
@@ -99,8 +98,9 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
-        
-        guard let mapAnnotation = annotation as? Place else {return}
+        guard let mapAnnotation = annotation as? Place else {
+            return
+        }
         
         let sourceCoordinate = mapView.userLocation.coordinate
         let destinationCoordinate = annotation.coordinate
@@ -113,12 +113,12 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
         
         let directions = MKDirections(request: request)
         directions.calculate { response, error in
-            
             let overlays = mapView.overlays
             mapView.removeOverlays(overlays)
-            
-            if error != nil { return }
-            guard let route = response?.routes.first else { return }
+            guard let route = response?.routes.first,
+                  error != nil else {
+                return
+            }
             mapView.addOverlay(route.polyline)
         }
         parent.annotationOnTap(mapAnnotation)

@@ -53,7 +53,7 @@ struct CommentsView: View {
         }//-VStack
     }//-body
     
-    //MARK: - Add Comment View
+    //MARK: - Views
     
     var addCommentView: some View {
         return VStack {

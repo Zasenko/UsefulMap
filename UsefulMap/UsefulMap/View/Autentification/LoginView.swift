@@ -88,6 +88,8 @@ struct LoginView: View {
         }
     }
     
+    //MARK: - Functions
+    
     @MainActor
     func login(login: String, password: String) async {
         do {
@@ -97,7 +99,9 @@ struct LoginView: View {
                 self.login = ""
                 self.password = ""
             } else {
-                guard let user = loginResult.user else {return}
+                guard let user = loginResult.user else {
+                    return
+                }
                 userViewModel.saveUser(user: user)
             }
         } catch {

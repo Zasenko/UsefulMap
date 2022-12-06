@@ -31,7 +31,7 @@ extension Momento {
         }
     }
     
-    func loaduser() -> User {
+    func loadUser() -> User {
 //        ClearUserDefaults().clear() // очистка UserDefaults для возможности запуска приложения с "нуля" для тестирования
         guard let data = UserDefaults.standard.data(forKey: key) else {
             return User()

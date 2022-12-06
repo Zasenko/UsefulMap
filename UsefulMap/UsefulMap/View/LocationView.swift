@@ -9,11 +9,13 @@ import SwiftUI
 
 struct LocationView: View {
     
-  //  @State private var directions: [String] = []
-  //  @State private var showDirections = false
+    //MARK: - Properties
+    
     @StateObject var locationManager = LocationManager()
     let networkManager: NetworkManager
     let userViewModel: UserViewModel
+    
+    //MARK: - Body
     
     var body: some View {
         switch locationManager.authorizationStatus {

@@ -71,6 +71,7 @@ struct RegistrationView: View {
         .background(Image("map").blur(radius: 50))
     }
     
+    //MARK: - Functions
     
     @MainActor
     func registration(login: String, password: String) async {
@@ -81,7 +82,9 @@ struct RegistrationView: View {
                 self.login = ""
                 self.password = ""
             } else {
-                guard let shorthandUser = registrationResult.user else {return}
+                guard let shorthandUser = registrationResult.user else {
+                    return
+                }
                 userViewModel.saveUser(user: shorthandUser)
             }
         } catch {
