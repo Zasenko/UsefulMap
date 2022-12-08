@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct LaunchView: View {
     
     //MARK: - Properties
@@ -16,12 +15,12 @@ struct LaunchView: View {
     @State var rotateLogo = false
     @State var moveLogoAndShowAppName = false
     @State var showAppName = false
-    @State var isAnimationOnLaunchViewEnded = true
+    @State var isAnimationOnLaunchViewEnded = false
     
-    let logoSize:CGFloat = GlobalProperties().logoSize
+    let logoSize: CGFloat = GlobalProperties.logoSize
     let decreaseLogo: CGFloat = 3
     let increaseForAppName: CGFloat = 3
-    let timeForRoutate:Double = 1
+    let timeForRoutate: Double = 1
     
     @AppStorage("isFirstTime") var isFirstTime: Bool = true
 

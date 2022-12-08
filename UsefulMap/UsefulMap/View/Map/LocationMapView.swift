@@ -9,14 +9,21 @@ import SwiftUI
 
 struct LocationMapView: View {
     
+    //MARK: - Properties
+    
     let networkManager: NetworkManager
     @ObservedObject var locationManager: LocationManager
     @State private var locations: DecodedPlaces = []
     @State private var celectedLocation: Place?
     
+    //MARK: - Body
+    
     var body: some View {
         ZStack {
-            MapView(locations: $locations, userCoordinates: $locationManager.userLocation, celectedLocation: $celectedLocation, annotationOnTap: { place in
+            MapView(locations: $locations,
+                    userCoordinates: $locationManager.userLocation,
+                    celectedLocation: $celectedLocation,
+                    annotationOnTap: { place in
                 celectedLocation = place
             })
                 .ignoresSafeArea()
@@ -45,6 +52,8 @@ struct LocationMapView: View {
             }
         }
     }
+    
+    //MARK: - Functions
     
     @MainActor
     func fetchLocations() async {

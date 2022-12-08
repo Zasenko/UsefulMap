@@ -7,6 +7,6 @@
 
 import Foundation
 
-class GlobalProperties {
-    let logoSize: CGFloat = 60
+struct GlobalProperties {
+    static let logoSize: CGFloat = 60
 }

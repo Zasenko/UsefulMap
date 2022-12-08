@@ -14,6 +14,8 @@ struct СountriesView: View {
     let networkManager: NetworkManager
     let userViewModel: UserViewModel
     
+    //MARK: - Private properties
+    
     @State private var countries: Countries = []
     
     //MARK: - Body
@@ -54,6 +56,8 @@ struct СountriesView: View {
         }//-NavigationStack
         .tint(.black)
     }//-body
+    
+    //MARK: - Functions
     
     @MainActor
     func fetchCountries() async {

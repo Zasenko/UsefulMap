@@ -97,11 +97,13 @@ struct PlaceView: View {
             }
             ToolbarItem {
                 HStack {
-                    Button {
-                        isFavorite.toggle()
-                    } label: {
-                        Image(systemName: isFavorite ? "heart.fill" : "heart")
-                            .foregroundColor(.red)
+                    if userViewModel.isUserLoggedIn() {
+                        Button {
+                            isFavorite.toggle()
+                        } label: {
+                            Image(systemName: isFavorite ? "heart.fill" : "heart")
+                                .foregroundColor(.red)
+                        }
                     }
                     Button {
                     } label: {
@@ -115,6 +117,8 @@ struct PlaceView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbarColorScheme(.dark, for: .navigationBar)
     }//-body
+    
+    //MARK: - Functions
     
     @MainActor
     func fetchPlaceById(placeId: Int) async {
