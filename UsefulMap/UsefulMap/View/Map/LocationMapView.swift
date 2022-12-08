@@ -11,21 +11,17 @@ struct LocationMapView: View {
     
     //MARK: - Properties
     
-    let networkManager: NetworkManager
     @ObservedObject var locationManager: LocationManager
-    @State private var locations: DecodedPlaces = []
+    
+    //MARK: - Private properties
+    
     @State private var celectedLocation: Place?
     
     //MARK: - Body
     
     var body: some View {
         ZStack {
-            MapView(locations: $locations,
-                    userCoordinates: $locationManager.userLocation,
-                    celectedLocation: $celectedLocation,
-                    annotationOnTap: { place in
-                celectedLocation = place
-            })
+            MapView(locations: $locationManager.locations, userCoordinates: $locationManager.userLocation, celectedLocation: $celectedLocation)
                 .ignoresSafeArea()
             VStack {
                 Spacer()
@@ -40,27 +36,6 @@ struct LocationMapView: View {
                     .transition(.move(edge: .bottom).combined(with: .opacity))
                 }
             }
-        }
-        .onAppear() {
-            
-            //TODO: получение локаций после того, как получим положение юзера
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                Task {
-                    await fetchLocations()
-                }
-            }
-        }
-    }
-    
-    //MARK: - Functions
-    
-    @MainActor
-    func fetchLocations() async {
-        do {
-            locations = try await networkManager.getAllPlacesByUserLocation(latitude: locationManager.userLocation.latitude, longitude: locationManager.userLocation.longitude)
-        } catch {
-            debugPrint("Error: ", error)
         }
     }
 }

@@ -15,11 +15,13 @@ struct MapView: UIViewRepresentable {
     
     //MARK: Properties
     
-    @Binding  var locations: DecodedPlaces
-    @Binding var userCoordinates: CLLocationCoordinate2D
+    @Binding  var locations: Places
+    @Binding var userCoordinates: CLLocationCoordinate2D?
     @Binding var celectedLocation: Place?
     
-    var annotationOnTap: (_ place: Place?) -> Void
+    //MARK: - Private Properties
+    
+    private let defaultRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(), latitudinalMeters: 5000, longitudinalMeters: 5000)
     
     //MARK: - Functions
     
@@ -31,32 +33,54 @@ struct MapView: UIViewRepresentable {
         let mapView = MKMapView()
         mapView.delegate = context.coordinator
         mapView.showsUserLocation = true
-        let region = MKCoordinateRegion(center: userCoordinates, latitudinalMeters: 5000, longitudinalMeters: 5000)
-        mapView.setRegion(region, animated: true)
+        mapView.mapType = .standard
+        mapView.setRegion(defaultRegion, animated: true)
         return mapView
     }
     
     func updateUIView(_ uiView: MKMapView, context: Context) {
-        var annotations: [MKAnnotation] = []
-        var mapLocations: [CLLocationCoordinate2D] = [userCoordinates]
-        
-        //TODO модель!
-        for i in locations {
-            let coordinate = CLLocationCoordinate2D(latitude: i.latitude, longitude: i.longitude)
-            mapLocations.append(coordinate)
-            let sourceAnnotation = Place(id: i.id, name: i.name, type: i.type, address: i.address, coordinate: coordinate, photo: i.photo)
-            annotations.append(sourceAnnotation)
+        if uiView.annotations.count != locations.count + 1 { /// +1 - User location annotation
+            uiView.removeAnnotations(uiView.annotations)
+            uiView.addAnnotations(getAnnotation())
         }
-        uiView.addAnnotations(annotations)
-        
-        var region: MKCoordinateRegion
-        if celectedLocation != nil {
-            guard let celectedCoordinates = celectedLocation?.coordinate else {return}
-            region = regionThatFitsTo(coordinates: [celectedCoordinates, userCoordinates])
-        } else {
-            region = regionThatFitsTo(coordinates: mapLocations)
-        }
+        let region = getRegion(userLocation: uiView.userLocation.coordinate)
         uiView.setRegion(region, animated: true)
+    }
+    
+    //MARK: - Private Functions
+    
+    private func getAnnotation() -> [MKAnnotation] {
+        var annotations: [MKAnnotation] = []
+        for i in locations {
+            switch i.type {
+            case .bar:
+                annotations.append(CustomAnnotation(coordinate: i.coordinate, type: .bar))
+            case .restaurant:
+                annotations.append(CustomAnnotation(coordinate: i.coordinate, type: .restaurant))
+            case .cafe:
+                annotations.append(CustomAnnotation(coordinate: i.coordinate, type: .cafe))
+            case .club:
+                annotations.append(CustomAnnotation(coordinate: i.coordinate, type: .club))
+            }
+        }
+        return annotations
+    }
+    
+    private func getRegion(userLocation: CLLocationCoordinate2D) -> MKCoordinateRegion {
+        var mapLocations: [CLLocationCoordinate2D] = [userLocation]
+        
+        guard let celectedLocationCoordinate = celectedLocation?.coordinate else {
+            if locations.isEmpty {
+                return MKCoordinateRegion(center: userLocation, latitudinalMeters: 1000, longitudinalMeters: 1000)
+            } else {
+                for i in locations {
+                    mapLocations.append(i.coordinate)
+                }
+                return regionThatFitsTo(coordinates: mapLocations)
+            }
+        }
+        mapLocations.append(celectedLocationCoordinate)
+        return regionThatFitsTo(coordinates: mapLocations)
     }
     
     private func regionThatFitsTo(coordinates: [CLLocationCoordinate2D]) -> MKCoordinateRegion {
@@ -74,60 +98,5 @@ struct MapView: UIViewRepresentable {
         region.span.latitudeDelta = fabs(topLeftCoord.latitude - bottomRightCoord.latitude) * 1.4
         region.span.longitudeDelta = fabs(bottomRightCoord.longitude - topLeftCoord.longitude) * 1.4
         return region
-    }
-    
-}
-
-class MapViewCoordinator: NSObject, MKMapViewDelegate {
-    
-    var parent: MapView
-    
-    init(_ parent: MapView) {
-        self.parent = parent
-    }
-    
-    deinit {
-        print("deinit: MapCoordinator")
-    }
-    
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        let renderer = MKPolylineRenderer(overlay: overlay)
-        renderer.strokeColor = .systemBlue
-        renderer.lineWidth = 5
-        return renderer
-    }
-    
-    func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
-        guard let mapAnnotation = annotation as? Place else {
-            return
-        }
-        
-        let sourceCoordinate = mapView.userLocation.coordinate
-        let destinationCoordinate = annotation.coordinate
-        
-        let request = MKDirections.Request()
-        request.source = MKMapItem(placemark: MKPlacemark(coordinate: sourceCoordinate, addressDictionary: nil))
-        request.destination = MKMapItem(placemark: MKPlacemark(coordinate: destinationCoordinate, addressDictionary: nil))
-        request.requestsAlternateRoutes = false
-        request.transportType = .walking
-        
-        let directions = MKDirections(request: request)
-        directions.calculate { response, error in
-            let overlays = mapView.overlays
-            mapView.removeOverlays(overlays)
-            guard let route = response?.routes.first,
-                  error != nil else {
-                return
-            }
-            mapView.addOverlay(route.polyline)
-        }
-        parent.annotationOnTap(mapAnnotation)
-        
-    }
-    
-    func mapView(_ mapView: MKMapView, didDeselect annotation: MKAnnotation) {
-        parent.annotationOnTap(nil)
-        let overlays = mapView.overlays
-        mapView.removeOverlays(overlays)
     }
 }
