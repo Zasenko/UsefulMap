@@ -16,12 +16,9 @@ struct RegistrationView: View {
     
     let screeenWidth = UIScreen.main.bounds.width
     
-    @Binding var isRegistrationViewOpen: Bool
+    @ObservedObject var registrationViewModel = RegistrationViewModel()
     @Binding var isLocationViewOpen: Bool
-    
-    @State private var login = ""
-    @State private var password = ""
-    @State private var error = ""
+    @Binding var isRegistrationViewOpen: Bool
     
     //MARK: - Body
     
@@ -29,22 +26,22 @@ struct RegistrationView: View {
         VStack {
             LogoSubView()
             Spacer().frame(height: 50)
-            Text(error)
+            Text(registrationViewModel.error)
                 .foregroundColor(.red)
                 .bold()
                 .multilineTextAlignment(.center)
                 .font(.headline)
-                .frame(width: screeenWidth/2, height: 70)
+                .frame(width: screeenWidth/1.5, height: 70)
             Group {
-                TextField("Email", text: $login, onEditingChanged: {_ in error = ""})
-                SecureField("Password", text: $password)
+                TextField("Email", text: $registrationViewModel.login, onEditingChanged: {_ in registrationViewModel.error = ""})
+                SecureField("Password", text: $registrationViewModel.password)
             }
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .padding(.horizontal, 40)
             
             Button {
                 Task {
-                    await registration(login: login, password: password)
+                    await registrationViewModel.registration(networkManager: networkManager, userViewModel: userViewModel)
                     if userViewModel.isUserLoggedIn() {
                         isRegistrationViewOpen = false
                         isLocationViewOpen = userViewModel.isUserLoggedIn()
@@ -70,26 +67,4 @@ struct RegistrationView: View {
         }
         .background(Image("map").blur(radius: 50))
     }
-    
-    //MARK: - Functions
-    
-    @MainActor
-    func registration(login: String, password: String) async {
-        do {
-            let registrationResult = try await networkManager.registration(login: login, password: password)
-            if registrationResult.result == 0 {
-                error = registrationResult.error ?? ""
-                self.login = ""
-                self.password = ""
-            } else {
-                guard let shorthandUser = registrationResult.user else {
-                    return
-                }
-                userViewModel.saveUser(user: shorthandUser)
-            }
-        } catch {
-            print("Error:---", error)
-        }
-    }
-    
 }

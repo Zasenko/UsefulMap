@@ -43,6 +43,8 @@
 		0F75E33E292CF10700EE7890 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F75E33D292CF10700EE7890 /* LocationView.swift */; };
 		0F75E340292CF3CC00EE7890 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F75E33F292CF3CC00EE7890 /* User.swift */; };
 		0F75E344292CFA6500EE7890 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F75E343292CFA6500EE7890 /* NetworkManager.swift */; };
+		231D69D5294645D8006C9379 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231D69D4294645D8006C9379 /* LoginViewModel.swift */; };
+		23343017294694E200DA03A0 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23343016294694E200DA03A0 /* RegistrationViewModel.swift */; };
 		234D787A293B82D400212ED8 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234D7879293B82D400212ED8 /* LaunchView.swift */; };
 		234D787D293B8CB500212ED8 /* LogoSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234D787C293B8CB500212ED8 /* LogoSubView.swift */; };
 		234D787F293B8D8400212ED8 /* SizesConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234D787E293B8D8400212ED8 /* SizesConstants.swift */; };
@@ -89,6 +91,8 @@
 		0F75E33D292CF10700EE7890 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		0F75E33F292CF3CC00EE7890 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0F75E343292CFA6500EE7890 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		231D69D4294645D8006C9379 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		23343016294694E200DA03A0 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		234D7879293B82D400212ED8 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		234D787C293B8CB500212ED8 /* LogoSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoSubView.swift; sourceTree = "<group>"; };
 		234D787E293B8D8400212ED8 /* SizesConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizesConstants.swift; sourceTree = "<group>"; };
@@ -236,6 +240,7 @@
 				0F75E337292CE71B00EE7890 /* AboutAppViewModel.swift */,
 				0F5BA0682938EF2700F42213 /* UserViewModel.swift */,
 				0F59FA2B2941F14D002A5DB9 /* MapViewCoordinator.swift */,
+				231D69D3294645B2006C9379 /* Autentification */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -266,6 +271,15 @@
 				0F75E335292CE42100EE7890 /* WelcomeCardView.swift */,
 			);
 			path = AboutApp;
+			sourceTree = "<group>";
+		};
+		231D69D3294645B2006C9379 /* Autentification */ = {
+			isa = PBXGroup;
+			children = (
+				231D69D4294645D8006C9379 /* LoginViewModel.swift */,
+				23343016294694E200DA03A0 /* RegistrationViewModel.swift */,
+			);
+			path = Autentification;
 			sourceTree = "<group>";
 		};
 		234D787B293B8C8600212ED8 /* GeneralAdditionalViews  */ = {
@@ -377,6 +391,7 @@
 				0F5BA0692938EF2700F42213 /* UserViewModel.swift in Sources */,
 				0F0F1FD7293626DC006F9901 /* Cities.swift in Sources */,
 				0F0F1FF129365B3E006F9901 /* CommentsView.swift in Sources */,
+				23343017294694E200DA03A0 /* RegistrationViewModel.swift in Sources */,
 				0F75E333292CE3E200EE7890 /* WelcomeCard.swift in Sources */,
 				0F0F1FF229365B3E006F9901 /* CommentView.swift in Sources */,
 				0F75E344292CFA6500EE7890 /* NetworkManager.swift in Sources */,
@@ -386,6 +401,7 @@
 				0F0F1FFA29365BFF006F9901 /* PlaceView.swift in Sources */,
 				0F0F1FDF29362815006F9901 /* Comments.swift in Sources */,
 				0F75E338292CE71B00EE7890 /* AboutAppViewModel.swift in Sources */,
+				231D69D5294645D8006C9379 /* LoginViewModel.swift in Sources */,
 				0F75E336292CE42100EE7890 /* WelcomeCardView.swift in Sources */,
 				0F59FA3229423539002A5DB9 /* CLLocationCoordinate2D.swift in Sources */,
 				0F74B4502937A566001CB052 /* LocationManager.swift in Sources */,
