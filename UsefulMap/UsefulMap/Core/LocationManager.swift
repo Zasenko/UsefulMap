@@ -8,22 +8,27 @@
 import Foundation
 import CoreLocation
 
+@MainActor
 class LocationManager: NSObject, ObservableObject {
     
     //MARK: - Properties
     
-    @Published var userLocation = CLLocationCoordinate2D()
+    @Published var userLocation: CLLocationCoordinate2D?
     @Published var authorizationStatus: CLAuthorizationStatus
+    @Published var locations: Places = []
+    
+    let networkManager: NetworkManager
     
     //MARK: - Private properties
     
-    private let locationManager: CLLocationManager
+    private var locationManager: CLLocationManager
     
-    //MARK: - Init
-
-    override init() {
-        locationManager = CLLocationManager()
-        authorizationStatus = locationManager.authorizationStatus
+    //MARK: - Initialization
+    
+    init(networkManager: NetworkManager) {
+        self.networkManager = networkManager
+        self.locationManager = CLLocationManager()
+        self.authorizationStatus = locationManager.authorizationStatus
         super.init()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.pausesLocationUpdatesAutomatically = true
@@ -42,13 +47,13 @@ extension LocationManager: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        manager.startUpdatingLocation()
         guard let location = locations.last?.coordinate else {
             return
         }
-        DispatchQueue.main.async {
-            self.userLocation = location
-            self.locationManager.stopUpdatingLocation()
+        self.userLocation = location
+        self.locationManager.stopUpdatingLocation()
+        Task {
+            self.locations = await fetchPlacesByUserLocation(latitude: location.latitude, longitude: location.longitude)
         }
     }
 }
@@ -68,5 +73,25 @@ extension LocationManager {
         @unknown default:
             break
         }
+    }
+    
+    private func fetchPlacesByUserLocation(latitude: Double, longitude: Double) async -> Places {
+        do {
+            let decodedPlaces = try await networkManager.getAllPlacesByUserLocation(latitude: latitude, longitude: longitude)
+            let places = await covertDecodedPlacestoPlaces(decodedPlaces: decodedPlaces)
+            return places
+        } catch {
+            debugPrint("Error: ", error)
+            return []
+        }
+    }
+
+    private func covertDecodedPlacestoPlaces(decodedPlaces: DecodedPlaces) async -> Places {
+        var places: Places = []
+        for i in decodedPlaces {
+            let place = Place(id: i.id, name: i.name, type: i.type, address: i.address, coordinate: CLLocationCoordinate2D(latitude: i.latitude, longitude: i.longitude), photo: i.photo)
+            places.append(place)
+        }
+        return places
     }
 }

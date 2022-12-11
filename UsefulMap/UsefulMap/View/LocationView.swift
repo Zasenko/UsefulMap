@@ -11,9 +11,17 @@ struct LocationView: View {
     
     //MARK: - Properties
     
-    @StateObject var locationManager = LocationManager()
+    @StateObject var locationManager: LocationManager
     let networkManager: NetworkManager
     let userViewModel: UserViewModel
+    
+    //MARK: - Initialization
+    
+    init(networkManager: NetworkManager, userViewModel: UserViewModel) {
+        self.networkManager = networkManager
+        self.userViewModel = userViewModel
+        self._locationManager = StateObject(wrappedValue: LocationManager(networkManager: networkManager))
+        }
     
     //MARK: - Body
     
@@ -27,7 +35,7 @@ struct LocationView: View {
         case .restricted, .denied:
             СountriesView(networkManager: networkManager, userViewModel: userViewModel)
         case .authorizedAlways, .authorizedWhenInUse:
-            LocationMapView(networkManager: networkManager, locationManager: locationManager)
+            LocationMapView(locationManager: locationManager)
         default:
             СountriesView(networkManager: networkManager, userViewModel: userViewModel)
         }

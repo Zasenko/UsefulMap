@@ -12,6 +12,4 @@ enum PlaceType: String, Codable {
     case restaurant
     case cafe
     case club
-    case liked
-    case all
 }

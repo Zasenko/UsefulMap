@@ -10,15 +10,15 @@ import MapKit
 
 typealias Places = [Place]
 
-class Place: NSObject, MKAnnotation {
+struct Place: Identifiable {
     let id: Int
     let name: String
     let type: PlaceType
     let address: String
     let coordinate: CLLocationCoordinate2D
-    var photo: String //TODO: UIImage
+    var photo: String
     var distance: Float?
-    //TODO: доделдать модель
+    var isLiked: Bool = false
 //    var country: String?
 //    var city: String?
 //    var description: String?
@@ -36,3 +36,5 @@ class Place: NSObject, MKAnnotation {
         self.distance = distance
     }
 }
+
+
