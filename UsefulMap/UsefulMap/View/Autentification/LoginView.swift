@@ -14,12 +14,11 @@ struct LoginView: View {
     let userViewModel: UserViewModel
     let networkManager: NetworkManager
     let screeenWidth = UIScreen.main.bounds.width
-    
+    @ObservedObject var loginViewModel = LoginViewModel()
     @Binding var isLocationViewOpen: Bool
     
-    @State private var login = ""
-    @State private var password = ""
-    @State private var error = ""
+    //MARK: - Private properties
+    
     @State private var isRegistrationViewOpen: Bool = false
     
     //MARK: - Body
@@ -28,22 +27,22 @@ struct LoginView: View {
         VStack {
             LogoSubView()
             Spacer().frame(height: 50)
-            Text(error)
+            Text(loginViewModel.error)
                 .foregroundColor(.red)
                 .bold()
                 .multilineTextAlignment(.center)
                 .font(.headline)
-                .frame(width: screeenWidth/2, height: 70)
+                .frame(width: screeenWidth/1.5, height: 70)
             Group {
-                TextField("Email", text: $login, onEditingChanged: {_ in error = ""})
-                SecureField("Password", text: $password)
+                TextField("Email", text: $loginViewModel.login, onEditingChanged: {_ in loginViewModel.error = ""})
+                SecureField("Password", text: $loginViewModel.password)
             }
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .padding(.horizontal, 40)
             VStack {
                 Button {
                     Task {
-                        await login(login: login, password: password)
+                        await loginViewModel.login(networkManager: networkManager, userViewModel: userViewModel)
                         isLocationViewOpen = userViewModel.isUserLoggedIn()
                     }
                 } label: {
@@ -84,28 +83,7 @@ struct LoginView: View {
         .fullScreenCover(isPresented: $isRegistrationViewOpen) {
             isLocationViewOpen = userViewModel.isUserLoggedIn()
         } content: {
-            RegistrationView(networkManager: networkManager, userViewModel: userViewModel, isRegistrationViewOpen: $isRegistrationViewOpen, isLocationViewOpen: $isLocationViewOpen)
-        }
-    }
-    
-    //MARK: - Functions
-    
-    @MainActor
-    func login(login: String, password: String) async {
-        do {
-            let loginResult = try await networkManager.login(login: login, password: password)
-            if loginResult.result == 0 {
-                error = loginResult.error ?? ""
-                self.login = ""
-                self.password = ""
-            } else {
-                guard let user = loginResult.user else {
-                    return
-                }
-                userViewModel.saveUser(user: user)
-            }
-        } catch {
-            print("Error:---", error)
+            RegistrationView(networkManager: networkManager, userViewModel: userViewModel, isLocationViewOpen: $isLocationViewOpen, isRegistrationViewOpen: $isRegistrationViewOpen)
         }
     }
 }
