@@ -11,10 +11,15 @@ struct PlacesView: View {
     
     //MARK: - Properties
     
-    let networkManager: NetworkManager
-    let userViewModel: UserViewModel
-    
+    let viewMode: PlacesViewModel
     @Binding var city: City
+    
+    //MARK: - Initialization
+    
+    init(networkManager: NetworkManager, userViewModel: UserViewModel, city: Binding<City>) {
+        self.viewMode = PlacesViewModel(networkManager: networkManager, userViewModel: userViewModel)
+        self._city = city
+    }
     
     //MARK: - Body
     
@@ -22,7 +27,7 @@ struct PlacesView: View {
         NavigationStack {
             List($city.places) { $place in
                 NavigationLink {
-                    PlaceView(networkManager: networkManager, userViewModel: userViewModel, place: $place)
+                    PlaceView(networkManager: viewMode.networkManager, userViewModel: viewMode.userViewModel, place: $place)
                 } label: {
                     PlaceItemView(place: place)
                 }
@@ -36,7 +41,7 @@ struct PlacesView: View {
             )
             .task {
                 if city.places.isEmpty {
-                    city.places = await fetchPlacesByCityId(cityId: city.id)
+                    city.places = await viewMode.fetchPlacesByCityId(cityId: city.id)
                 }
             }
             .listStyle(.plain)
@@ -51,18 +56,5 @@ struct PlacesView: View {
             }
         }//-NavigationStack
         .tint(.black)
-    }
-    
-    //MARK: - Functions
-    
-    @MainActor
-    func fetchPlacesByCityId(cityId: Int) async -> Places {
-        do {
-            let places = try await networkManager.getAllPlacesByCityId(cityId: city.id)
-            return places
-        } catch {
-            debugPrint("Error: ", error)
-            return []
-        }
     }
 }

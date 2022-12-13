@@ -49,6 +49,7 @@
 		0FE1E77F2948BB6C00DA9D3B /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE1E77E2948BB6C00DA9D3B /* MapViewModel.swift */; };
 		0FE1E7822948BDC800DA9D3B /* СountriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE1E7812948BDC800DA9D3B /* СountriesViewModel.swift */; };
 		0FE1E7852948C27300DA9D3B /* CitiesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE1E7842948C27300DA9D3B /* CitiesViewModel.swift */; };
+		0FE1E7882948C4BB00DA9D3B /* PlacesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE1E7872948C4BB00DA9D3B /* PlacesViewModel.swift */; };
 		231D69D5294645D8006C9379 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231D69D4294645D8006C9379 /* LoginViewModel.swift */; };
 		23343017294694E200DA03A0 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23343016294694E200DA03A0 /* RegistrationViewModel.swift */; };
 		234D787A293B82D400212ED8 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234D7879293B82D400212ED8 /* LaunchView.swift */; };
@@ -103,6 +104,7 @@
 		0FE1E77E2948BB6C00DA9D3B /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		0FE1E7812948BDC800DA9D3B /* СountriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "СountriesViewModel.swift"; sourceTree = "<group>"; };
 		0FE1E7842948C27300DA9D3B /* CitiesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewModel.swift; sourceTree = "<group>"; };
+		0FE1E7872948C4BB00DA9D3B /* PlacesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesViewModel.swift; sourceTree = "<group>"; };
 		231D69D4294645D8006C9379 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		23343016294694E200DA03A0 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		234D7879293B82D400212ED8 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 		0F74B44B293791A2001CB052 /* Places */ = {
 			isa = PBXGroup;
 			children = (
+				0FE1E7862948C38500DA9D3B /* ViewModel */,
 				0FE1E76229487CE700DA9D3B /* View */,
 			);
 			path = Places;
@@ -588,6 +591,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		0FE1E7862948C38500DA9D3B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0FE1E7872948C4BB00DA9D3B /* PlacesViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		23676572293CF1BE00B4E081 /* AdditionalMethods */ = {
 			isa = PBXGroup;
 			children = (
@@ -706,6 +717,7 @@
 				0F75E336292CE42100EE7890 /* WelcomeCardView.swift in Sources */,
 				0F59FA3229423539002A5DB9 /* CLLocationCoordinate2D.swift in Sources */,
 				0F74B4502937A566001CB052 /* LocationManager.swift in Sources */,
+				0FE1E7882948C4BB00DA9D3B /* PlacesViewModel.swift in Sources */,
 				23676574293CF1DB00B4E081 /* ClearUserDefaults.swift in Sources */,
 				0FE1E76F2948810900DA9D3B /* LaunchAnimationView.swift in Sources */,
 				0F75E33E292CF10700EE7890 /* LocationRequestView.swift in Sources */,
