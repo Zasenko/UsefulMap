@@ -73,7 +73,7 @@ struct LoginView: View {
             viewModel.isLocationViewOpen = viewModel.userViewModel.isUserLoggedIn()
         }
         .background(
-            Image("map")
+            AppImages.mapBackground
                 .blur(radius: 10)
         )
         .fullScreenCover(isPresented: $viewModel.isRegistrationViewOpen) {

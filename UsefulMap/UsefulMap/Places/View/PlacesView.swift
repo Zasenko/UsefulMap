@@ -29,7 +29,7 @@ struct PlacesView: View {
                 .listRowBackground(Color.clear)
             }
             .background(
-                Image("map")
+                AppImages.mapBackground
                     .resizable()
                     .blur(radius: 10)
                     .ignoresSafeArea()

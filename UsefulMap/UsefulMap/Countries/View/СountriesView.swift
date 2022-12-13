@@ -23,7 +23,7 @@ struct СountriesView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Image("map")
+                AppImages.mapBackground
                     .resizable()
                     .blur(radius: 10)
                     .ignoresSafeArea()

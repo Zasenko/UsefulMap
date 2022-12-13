@@ -30,6 +30,6 @@ struct AboutAppView: View {
             .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
             .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .never))
         }//-VStack
-        .background(Image("map").blur(radius: 50))
+        .background(AppImages.mapBackground.blur(radius: 50))
     }
 }
