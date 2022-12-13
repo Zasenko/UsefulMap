@@ -20,7 +20,7 @@ struct LaunchView: View {
             if viewModel.isFirstTime {
                 AboutAppView()
             } else {
-                AutentificationView()
+                AuthenticationView()
             }
         } else {
             LaunchAnimationView(isAnimationOnLaunchViewEnded: $viewModel.isAnimationOnLaunchViewEnded)
