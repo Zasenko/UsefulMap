@@ -25,6 +25,9 @@ class LaunchAnimationViewModel: ObservableObject {
     init(isAnimationOnLaunchViewEnded: Binding<Bool>) {
         _isAnimationOnLaunchViewEnded = isAnimationOnLaunchViewEnded
     }
+}
+
+extension LaunchAnimationViewModel {
     
     //MARK: - Functions
     

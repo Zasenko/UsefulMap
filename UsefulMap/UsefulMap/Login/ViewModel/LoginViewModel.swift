@@ -28,6 +28,9 @@ class LoginViewModel: ObservableObject {
         self.networkManager = networkManager
         self._isLocationViewOpen = isLocationViewOpen
     }
+}
+
+extension LoginViewModel {
     
     //MARK: - Functions
     

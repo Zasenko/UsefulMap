@@ -29,6 +29,9 @@ class RegistrationViewModel: ObservableObject {
         self._isLocationViewOpen = isLocationViewOpen
         self._isRegistrationViewOpen = isRegistrationViewOpen
     }
+}
+
+extension RegistrationViewModel {
     
     //MARK: - Functions
     
