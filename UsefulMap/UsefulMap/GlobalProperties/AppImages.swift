@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AppImages {
     static let logoWithoutImageWhiteText = Image("LogoWithoutImage (white text)")
+    static let logoWithoutImageBlackText  = Image("LogoWithoutImage (black text)")
     static let logoWithoutText = Image("LogoWithoutText")
     static let mapBackground = Image("map")
     static let iconBar = UIImage(named: "barIcon")

@@ -193,6 +193,7 @@
 				0FE1E76929487EF100DA9D3B /* StaticViews */,
 				0F59FA3329424880002A5DB9 /* GlobalProperties */,
 				0F74B448293790AB001CB052 /* Extentions */,
+				23676572293CF1BE00B4E081 /* AdditionalMethods */,
 				0F75E321292CCDA100EE7890 /* Assets.xcassets */,
 				0F75E323292CCDA100EE7890 /* Preview Content */,
 			);
@@ -212,12 +213,10 @@
 			children = (
 				0FE1E74C2948798D00DA9D3B /* Network */,
 				0FE1E74729479C3E00DA9D3B /* UserMomento */,
-				0F75E33F292CF3CC00EE7890 /* User.swift */,
 				23676570293CE8AB00B4E081 /* Ragistration.swift */,
+				0F75E33F292CF3CC00EE7890 /* User.swift */,
 				0F51F590293B3F9F00F85619 /* Place.swift */,
-				0F0F1FDE29362815006F9901 /* Comments.swift */,
 				0F0F1FE529363C88006F9901 /* PlaceType.swift */,
-				23676572293CF1BE00B4E081 /* AdditionalMethods */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -414,6 +413,7 @@
 		0FE1E75E29487B8E00DA9D3B /* Comments */ = {
 			isa = PBXGroup;
 			children = (
+				0FE1E78C2948C97700DA9D3B /* Model */,
 				0FE1E75F29487B9B00DA9D3B /* View */,
 			);
 			path = Comments;
@@ -608,6 +608,14 @@
 				0FE1E7892948C7C100DA9D3B /* PlaceViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0FE1E78C2948C97700DA9D3B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0F0F1FDE29362815006F9901 /* Comments.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		23676572293CF1BE00B4E081 /* AdditionalMethods */ = {
