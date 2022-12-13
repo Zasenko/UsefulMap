@@ -160,6 +160,7 @@
 				0F75E31D292CCDA000EE7890 /* UsefulMapApp.swift */,
 				0F75E331292CD00E00EE7890 /* Models */,
 				0FE1E75629487AE300DA9D3B /* Launch */,
+				0FE1E77029488BE200DA9D3B /* LaunchAnimation */,
 				0F75E334292CE40000EE7890 /* AboutApp */,
 				0FE1E74E294879F100DA9D3B /* Autentification */,
 				0FE1E75029487A4000DA9D3B /* Login */,
@@ -343,7 +344,6 @@
 			isa = PBXGroup;
 			children = (
 				234D7879293B82D400212ED8 /* LaunchView.swift */,
-				0FE1E76E2948810900DA9D3B /* LaunchAnimationView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -512,6 +512,22 @@
 				0F0F1FD6293626DC006F9901 /* Cities.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		0FE1E77029488BE200DA9D3B /* LaunchAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				0FE1E77129488C0100DA9D3B /* View */,
+			);
+			path = LaunchAnimation;
+			sourceTree = "<group>";
+		};
+		0FE1E77129488C0100DA9D3B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0FE1E76E2948810900DA9D3B /* LaunchAnimationView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		23676572293CF1BE00B4E081 /* AdditionalMethods */ = {
