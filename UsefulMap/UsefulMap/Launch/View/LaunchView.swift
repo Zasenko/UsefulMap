@@ -10,21 +10,20 @@ import SwiftUI
 struct LaunchView: View {
     
     //MARK: - Properties
-
-    @State var isAnimationOnLaunchViewEnded = false
-    @AppStorage("isFirstTime") var isFirstTime: Bool = true
+    
+    @StateObject var viewModel = LaunchViewModel()
 
     //MARK: - Body
     
     var body: some View {
-        if isAnimationOnLaunchViewEnded {
-            if isFirstTime {
+        if viewModel.isAnimationOnLaunchViewEnded {
+            if viewModel.isFirstTime {
                 AboutAppView()
             } else {
                 AutentificationView()
             }
         } else {
-            LaunchAnimationView(isAnimationOnLaunchViewEnded: $isAnimationOnLaunchViewEnded)
+            LaunchAnimationView(isAnimationOnLaunchViewEnded: $viewModel.isAnimationOnLaunchViewEnded)
         }
     }
 }

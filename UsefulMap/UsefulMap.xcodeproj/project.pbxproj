@@ -43,6 +43,7 @@
 		0F75E344292CFA6500EE7890 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F75E343292CFA6500EE7890 /* NetworkManager.swift */; };
 		0FE1E746294785C700DA9D3B /* AppImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE1E745294785C700DA9D3B /* AppImages.swift */; };
 		0FE1E76F2948810900DA9D3B /* LaunchAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE1E76E2948810900DA9D3B /* LaunchAnimationView.swift */; };
+		0FE1E7742948903500DA9D3B /* LaunchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE1E7732948903500DA9D3B /* LaunchViewModel.swift */; };
 		231D69D5294645D8006C9379 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231D69D4294645D8006C9379 /* LoginViewModel.swift */; };
 		23343017294694E200DA03A0 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23343016294694E200DA03A0 /* RegistrationViewModel.swift */; };
 		234D787A293B82D400212ED8 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234D7879293B82D400212ED8 /* LaunchView.swift */; };
@@ -91,6 +92,7 @@
 		0F75E343292CFA6500EE7890 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		0FE1E745294785C700DA9D3B /* AppImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppImages.swift; sourceTree = "<group>"; };
 		0FE1E76E2948810900DA9D3B /* LaunchAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAnimationView.swift; sourceTree = "<group>"; };
+		0FE1E7732948903500DA9D3B /* LaunchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewModel.swift; sourceTree = "<group>"; };
 		231D69D4294645D8006C9379 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		23343016294694E200DA03A0 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		234D7879293B82D400212ED8 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 		0FE1E75629487AE300DA9D3B /* Launch */ = {
 			isa = PBXGroup;
 			children = (
+				0FE1E7722948901900DA9D3B /* ViewModel */,
 				0FE1E75729487B0A00DA9D3B /* View */,
 			);
 			path = Launch;
@@ -530,6 +533,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		0FE1E7722948901900DA9D3B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0FE1E7732948903500DA9D3B /* LaunchViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		23676572293CF1BE00B4E081 /* AdditionalMethods */ = {
 			isa = PBXGroup;
 			children = (
@@ -635,6 +646,7 @@
 				0F0F1FF229365B3E006F9901 /* CommentView.swift in Sources */,
 				0F75E344292CFA6500EE7890 /* NetworkManager.swift in Sources */,
 				0F0F1FE12936285A006F9901 /* CitiesView.swift in Sources */,
+				0FE1E7742948903500DA9D3B /* LaunchViewModel.swift in Sources */,
 				234D787D293B8CB500212ED8 /* LogoSubView.swift in Sources */,
 				0F75E31E292CCDA000EE7890 /* UsefulMapApp.swift in Sources */,
 				0F0F1FFA29365BFF006F9901 /* PlaceView.swift in Sources */,
