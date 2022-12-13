@@ -11,14 +11,18 @@ struct PlaceView: View {
     
     //MARK: - Properties
     
+    let viewModel: PlaceViewModel
+    
     @Environment(\.presentationMode) var presentationMode
-    
-    let networkManager: NetworkManager
-    let userViewModel: UserViewModel
-    
     @Binding var place: Place
-    
     @State private var isFavorite: Bool = false
+    
+    //MARK: - Initialization
+    
+    init(networkManager: NetworkManager, userViewModel: UserViewModel, place: Binding<Place>) {
+        self.viewModel = PlaceViewModel(networkManager: networkManager, userViewModel: userViewModel)
+        self._place = place
+    }
     
     //MARK: - Body
     
@@ -58,7 +62,6 @@ struct PlaceView: View {
                         }
                     }
                     .padding(.bottom, 20)
-                    
                 }
                 Text(place.address)
                     .bold()
@@ -77,7 +80,7 @@ struct PlaceView: View {
         .edgesIgnoringSafeArea(.top)
         .task {
             if place.description == nil {
-                await fetchPlaceById(placeId: place.id)
+                place = await viewModel.fetchPlaceById(placeId: place.id, place: place)
             }
         }
         .toolbar {
@@ -97,7 +100,7 @@ struct PlaceView: View {
             }
             ToolbarItem {
                 HStack {
-                    if userViewModel.isUserLoggedIn() {
+                    if viewModel.userViewModel.isUserLoggedIn() {
                         Button {
                             isFavorite.toggle()
                         } label: {
@@ -114,18 +117,6 @@ struct PlaceView: View {
             }
         }
         .navigationBarBackButtonHidden()
-        .navigationBarTitleDisplayMode(.inline)
         .toolbarColorScheme(.dark, for: .navigationBar)
     }//-body
-    
-    //MARK: - Functions
-    
-    @MainActor
-    func fetchPlaceById(placeId: Int) async {
-        do {
-            place = try await networkManager.getPlaceInfoById(placeId: placeId)
-        } catch {
-            debugPrint("Error: ", error)
-        }
-    }
 }
