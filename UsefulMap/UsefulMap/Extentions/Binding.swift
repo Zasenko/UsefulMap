@@ -19,3 +19,16 @@ extension Binding where Value == Comments? {
         )
     }
 }
+
+extension Binding where Value == Place? {
+    func placeToNonOptional() -> Binding<Place> {
+        return Binding<Place>(
+            get: {
+                return self.wrappedValue ?? Place(id: 0, name: "", type: .restaurant, address: "", latitude: 0.0, longitude: 0.0, photo: "Place")
+            },
+            set: {
+                self.wrappedValue = $0
+            }
+        )
+    }
+}
