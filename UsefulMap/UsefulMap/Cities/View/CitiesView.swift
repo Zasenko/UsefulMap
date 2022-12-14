@@ -11,23 +11,28 @@ struct CitiesView: View {
     
     //MARK: - Properties
     
-    let networkManager: NetworkManager
-    let userViewModel: UserViewModel
-    
+    let viewModel: CitiesViewModel
     @Binding var country: Country
+    
+    //MARK: - Initialization
+    
+    init(networkManager: NetworkManager, userViewModel: UserViewModel, country: Binding<Country>) {
+        self.viewModel = CitiesViewModel(networkManager: networkManager, userViewModel: userViewModel)
+        self._country = country
+    }
     
     //MARK: - Body
     
     var body: some View {
         NavigationStack {
             ZStack {
-                Image("map")
+                AppImages.mapBackground
                     .resizable()
                     .blur(radius: 10)
                     .ignoresSafeArea()
                 List($country.cities) { $city in
                     NavigationLink {
-                        PlacesView(networkManager: networkManager, userViewModel: userViewModel, city: $city)
+                        PlacesView(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel, city: $city)
                     } label: {
                         Text(city.name)
                             .padding(.vertical, 10)
@@ -36,7 +41,7 @@ struct CitiesView: View {
                 }
                 .task {
                     if country.cities.isEmpty {
-                        country.cities = await fetchCitiesByCountryId()
+                        country.cities = await viewModel.fetchCitiesByCountryId(countryId: country.id)
                     }
                 }
                 .listStyle(.plain)
@@ -49,20 +54,8 @@ struct CitiesView: View {
                         }
                     }
                 }
-            }
-        }.tint(.black)
+            }//-ZStack
+        }//-NavigationStack
+        .tint(.black)
     }//-body
-    
-    //MARK: - Functions
-    
-    @MainActor
-    func fetchCitiesByCountryId() async -> Cities {
-        do {
-            let cities = try await networkManager.getAllCitiesByCountryId(countryId: country.id)
-            return cities
-        } catch {
-            debugPrint("Error: ", error)
-            return []
-        }
-    }
 }

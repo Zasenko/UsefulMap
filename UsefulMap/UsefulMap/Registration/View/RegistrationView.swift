@@ -10,15 +10,14 @@ import SwiftUI
 struct RegistrationView: View {
     
     //MARK: - Properties
+
+    @StateObject var viewModel: RegistrationViewModel
+
+    //MARK: - Initialization
     
-    let networkManager: NetworkManager
-    let userViewModel: UserViewModel
-    
-    let screeenWidth = UIScreen.main.bounds.width
-    
-    @ObservedObject var registrationViewModel = RegistrationViewModel()
-    @Binding var isLocationViewOpen: Bool
-    @Binding var isRegistrationViewOpen: Bool
+    init(networkManager: NetworkManager, userViewModel: UserViewModel, isLocationViewOpen: Binding<Bool>, isRegistrationViewOpen: Binding<Bool>) {
+        _viewModel = StateObject(wrappedValue: RegistrationViewModel(networkManager: networkManager, userViewModel: userViewModel, isLocationViewOpen: isLocationViewOpen, isRegistrationViewOpen: isRegistrationViewOpen))
+    }
     
     //MARK: - Body
     
@@ -26,25 +25,23 @@ struct RegistrationView: View {
         VStack {
             LogoSubView()
             Spacer().frame(height: 50)
-            Text(registrationViewModel.error)
+            Text(viewModel.error)
                 .foregroundColor(.red)
                 .bold()
                 .multilineTextAlignment(.center)
                 .font(.headline)
-                .frame(width: screeenWidth/1.5, height: 70)
+                .frame(width: SizesConstants.screeenWidth/1.5, height: 70)
             Group {
-                TextField("Email", text: $registrationViewModel.login, onEditingChanged: {_ in registrationViewModel.error = ""})
-                SecureField("Password", text: $registrationViewModel.password)
+                TextField("Email", text: $viewModel.login, onEditingChanged: {_ in viewModel.error = ""})
+                SecureField("Password", text: $viewModel.password)
             }
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .padding(.horizontal, 40)
-            
             Button {
                 Task {
-                    await registrationViewModel.registration(networkManager: networkManager, userViewModel: userViewModel)
-                    if userViewModel.isUserLoggedIn() {
-                        isRegistrationViewOpen = false
-                        isLocationViewOpen = userViewModel.isUserLoggedIn()
+                    await viewModel.registration()
+                    if viewModel.userViewModel.isUserLoggedIn() {
+                        viewModel.isRegistrationViewOpen = false
                     }
                 }
             } label: {
@@ -58,13 +55,13 @@ struct RegistrationView: View {
             }
             .padding(10)
             Button {
-                isRegistrationViewOpen = false
+                viewModel.isRegistrationViewOpen = false
             } label: {
                 Text("Отмена")
                     .foregroundColor(.gray)
             }
             Spacer()
-        }
-        .background(Image("map").blur(radius: 50))
-    }
+        }//-VStack
+        .background(AppImages.mapBackground.blur(radius: 50))
+    }//-body
 }

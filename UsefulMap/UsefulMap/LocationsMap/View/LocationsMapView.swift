@@ -13,6 +13,7 @@ struct LocationsMapView: View {
     
     @ObservedObject var locationManager: LocationManager
     let userViewModel: UserViewModel
+    
     //MARK: - Private properties
     
     @State private var celectedLocation: Place?

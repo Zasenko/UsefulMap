@@ -11,15 +11,13 @@ struct LoginView: View {
     
     //MARK: - Properties
     
-    let userViewModel: UserViewModel
-    let networkManager: NetworkManager
-    let screeenWidth = UIScreen.main.bounds.width
-    @ObservedObject var loginViewModel = LoginViewModel()
-    @Binding var isLocationViewOpen: Bool
+    @StateObject var viewModel: LoginViewModel
+
+    //MARK: - Initialization
     
-    //MARK: - Private properties
-    
-    @State private var isRegistrationViewOpen: Bool = false
+    init(userViewModel: UserViewModel, networkManager: NetworkManager, isLocationViewOpen: Binding<Bool>) {
+        _viewModel = StateObject(wrappedValue: LoginViewModel(userViewModel: userViewModel, networkManager: networkManager, isLocationViewOpen: isLocationViewOpen))
+    }
     
     //MARK: - Body
     
@@ -27,46 +25,44 @@ struct LoginView: View {
         VStack {
             LogoSubView()
             Spacer().frame(height: 50)
-            Text(loginViewModel.error)
+            Text(viewModel.error)
                 .foregroundColor(.red)
                 .bold()
                 .multilineTextAlignment(.center)
                 .font(.headline)
-                .frame(width: screeenWidth/1.5, height: 70)
+                .frame(width: SizesConstants.screeenWidth/1.5, height: 70)
             Group {
-                TextField("Email", text: $loginViewModel.login, onEditingChanged: {_ in loginViewModel.error = ""})
-                SecureField("Password", text: $loginViewModel.password)
+                TextField("Email", text: $viewModel.login, onEditingChanged: {_ in viewModel.error = ""})
+                SecureField("Password", text: $viewModel.password)
             }
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .padding(.horizontal, 40)
             VStack {
                 Button {
                     Task {
-                        await loginViewModel.login(networkManager: networkManager, userViewModel: userViewModel)
-                        isLocationViewOpen = userViewModel.isUserLoggedIn()
+                        await viewModel.login()
+                        viewModel.isLocationViewOpen = viewModel.userViewModel.isUserLoggedIn()
                     }
                 } label: {
                     Text("Войти")
                         .font(.headline)
-                        .frame(width: screeenWidth/2)
+                        .frame(width: SizesConstants.screeenWidth/2)
                 }
                 .tint(.green)
                 .buttonStyle(.borderedProminent)
-                
                 Button {
-                    isRegistrationViewOpen = true
+                    viewModel.isRegistrationViewOpen = true
                 } label: {
                     Text("Регистрация")
                         .font(.headline)
-                        .frame(width: screeenWidth/2)
+                        .frame(width: SizesConstants.screeenWidth/2)
                 }
                 .tint(.green)
                 .buttonStyle(.borderedProminent)
-                
-            }//-VStack with buttons
+            }//-VStack
             .padding()
             Button {
-                isLocationViewOpen = true
+                viewModel.isLocationViewOpen = true
             } label: {
                 Text("Пропустить")
                     .foregroundColor(.gray)
@@ -74,17 +70,16 @@ struct LoginView: View {
             Spacer()
         }//-VStack
         .onAppear() {
-            isLocationViewOpen = userViewModel.isUserLoggedIn()
+            viewModel.isLocationViewOpen = viewModel.userViewModel.isUserLoggedIn()
         }
         .background(
-            Image("map")
+            AppImages.mapBackground
                 .blur(radius: 10)
         )
-        .fullScreenCover(isPresented: $isRegistrationViewOpen) {
-            isLocationViewOpen = userViewModel.isUserLoggedIn()
+        .fullScreenCover(isPresented: $viewModel.isRegistrationViewOpen) {
+            viewModel.isLocationViewOpen = viewModel.userViewModel.isUserLoggedIn()
         } content: {
-            RegistrationView(networkManager: networkManager, userViewModel: userViewModel, isLocationViewOpen: $isLocationViewOpen, isRegistrationViewOpen: $isRegistrationViewOpen)
+            RegistrationView(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel, isLocationViewOpen: $viewModel.isLocationViewOpen, isRegistrationViewOpen: $viewModel.isRegistrationViewOpen)
         }
     }
 }
-

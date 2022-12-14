@@ -11,25 +11,26 @@ struct СountriesView: View {
     
     //MARK: - Properties
     
-    let networkManager: NetworkManager
-    let userViewModel: UserViewModel
+    @StateObject var viewModel: СountriesViewModel
     
-    //MARK: - Private properties
+    //MARK: - Initialization
     
-    @State private var countries: Countries = []
+    init(networkManager: NetworkManager, userViewModel: UserViewModel) {
+        _viewModel = StateObject(wrappedValue: СountriesViewModel(networkManager: networkManager, userViewModel: userViewModel))
+    }
     
     //MARK: - Body
     
     var body: some View {
         NavigationStack {
             ZStack {
-                Image("map")
+                AppImages.mapBackground
                     .resizable()
                     .blur(radius: 10)
                     .ignoresSafeArea()
-                List ($countries) { $country in
+                List ($viewModel.countries) { $country in
                     NavigationLink {
-                        CitiesView(networkManager: networkManager, userViewModel: userViewModel, country: $country)
+                        CitiesView(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel, country: $country)
                     } label: {
                         Text(country.name)
                             .padding(.vertical, 10)
@@ -38,8 +39,8 @@ struct СountriesView: View {
                 }
                 .listStyle(.plain)
                 .task {
-                    if countries.isEmpty {
-                        await fetchCountries()
+                    if viewModel.countries.isEmpty {
+                        await viewModel.fetchCountries()
                     }
                 }
                 .navigationTitle("Страны")
@@ -56,15 +57,4 @@ struct СountriesView: View {
         }//-NavigationStack
         .tint(.black)
     }//-body
-    
-    //MARK: - Functions
-    
-    @MainActor
-    func fetchCountries() async {
-        do {
-            countries = try await networkManager.getAllCountries()
-        } catch {
-            debugPrint("Error: ", error)
-        }
-    }
 }
