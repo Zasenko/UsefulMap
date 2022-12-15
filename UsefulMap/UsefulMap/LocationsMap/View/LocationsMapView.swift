@@ -39,6 +39,27 @@ struct LocationsMapView: View {
                     }
                     
                 }//-VStack
+                if locationManager.isLocationFound == false {
+                    ZStack {
+                        Color.black.opacity(0.9)
+                        VStack {
+                            Text("К сожалению, мы ничего не нашли рядом с вами.")
+                                .foregroundColor(.white)
+                                .padding()
+                                .multilineTextAlignment(.center)
+                            Button {
+                                locationManager.authorizationStatus = .denied
+                            } label: {
+                                Text("Перейти к каталогу")
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .background(.green)
+                                    .clipShape(Capsule())
+                            }
+                        }
+                    }//-ZStack
+                    .ignoresSafeArea()
+                }
             }//-ZStack
         }//-NavigationStack
     }

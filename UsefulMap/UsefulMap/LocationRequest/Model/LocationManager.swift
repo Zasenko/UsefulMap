@@ -16,6 +16,7 @@ class LocationManager: NSObject, ObservableObject {
     @Published var userLocation: CLLocationCoordinate2D?
     @Published var authorizationStatus: CLAuthorizationStatus
     @Published var locations: Places = []
+    @Published var isLocationFound: Bool = true
     
     let networkManager: NetworkManager
     
@@ -56,7 +57,12 @@ extension LocationManager: CLLocationManagerDelegate {
         self.userLocation = location
         self.locationManager.stopUpdatingLocation()
         Task {
-            self.locations = await fetchPlacesByUserLocation(latitude: location.latitude, longitude: location.longitude)
+            let foundLocations = await fetchPlacesByUserLocation(latitude: location.latitude, longitude: location.longitude)
+            if foundLocations.isEmpty {
+                self.isLocationFound = false
+            } else {
+                self.locations = foundLocations
+            }
         }
     }
 }
