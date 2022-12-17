@@ -28,7 +28,7 @@ struct LocationRequestView: View {
     var body: some View {
         switch locationManager.authorizationStatus {
         case .notDetermined:
-            Image("map")
+            AppImages.mapBackground
                 .resizable()
                 .blur(radius: 10)
                 .ignoresSafeArea()
