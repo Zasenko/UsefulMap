@@ -12,11 +12,12 @@ struct PlaceView: View {
     //MARK: - Properties
     
     let viewModel: PlaceViewModel
-    
+
+    @Environment(\.openURL) var openURL
     @Environment(\.presentationMode) var presentationMode
     @Binding var place: Place
     @State private var isFavorite: Bool = false
-    
+
     //MARK: - Initialization
     
     init(networkManager: NetworkManager, userViewModel: UserViewModel, place: Binding<Place>) {
@@ -41,6 +42,11 @@ struct PlaceView: View {
                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 1.5)
                     HStack {
                         Button {
+                        action: do {
+                            guard let url = URL(string: "tel://" + String(place.phone ?? 12345)) else { return }
+                            UIApplication.shared.open(url)
+                            print(url)
+                        }
                         } label: {
                             Text("Позвонить")
                                 .foregroundColor(.black)
@@ -51,6 +57,9 @@ struct PlaceView: View {
                         }
                         if let www = place.www, www.isEmpty == false {
                             Button {
+                            action: do {
+                                openURL(URL(string: place.www ?? "google.com")!)
+                            }
                             } label: {
                                 Text("Перейти на сайт")
                                     .foregroundColor(.black)
