@@ -17,7 +17,10 @@ class LocationManager: NSObject, ObservableObject {
     @Published var authorizationStatus: CLAuthorizationStatus
     @Published var locations: Places = []
     @Published var isLocationFound: Bool = true
-    
+    @Published var selectedCategory: PlaceType? = nil
+    @Published var filteredPlaces: Places = []
+    @Published var placeCategories: [PlaceType] = []
+
     let networkManager: NetworkManager
     
     //MARK: - Private properties
@@ -62,8 +65,17 @@ extension LocationManager: CLLocationManagerDelegate {
                 self.isLocationFound = false
             } else {
                 self.locations = foundLocations
+                self.filteredPlaces = foundLocations
+                self.placeCategories = foundLocations.map( { $0.type} ).uniqued()
             }
         }
+    }
+}
+
+extension Sequence where Element: Hashable {
+    func uniqued() -> [Element] {
+        var set = Set<Element>()
+        return filter { set.insert($0).inserted }
     }
 }
 

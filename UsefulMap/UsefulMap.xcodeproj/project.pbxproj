@@ -41,6 +41,7 @@
 		0F75E33E292CF10700EE7890 /* LocationRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F75E33D292CF10700EE7890 /* LocationRequestView.swift */; };
 		0F75E340292CF3CC00EE7890 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F75E33F292CF3CC00EE7890 /* User.swift */; };
 		0F75E344292CFA6500EE7890 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F75E343292CFA6500EE7890 /* NetworkManager.swift */; };
+		0FA7104C294DFE87006B92B5 /* SortingMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA7104B294DFE87006B92B5 /* SortingMenu.swift */; };
 		0FE1E746294785C700DA9D3B /* AppImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE1E745294785C700DA9D3B /* AppImages.swift */; };
 		0FE1E76F2948810900DA9D3B /* LaunchAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE1E76E2948810900DA9D3B /* LaunchAnimationView.swift */; };
 		0FE1E7742948903500DA9D3B /* LaunchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FE1E7732948903500DA9D3B /* LaunchViewModel.swift */; };
@@ -97,6 +98,7 @@
 		0F75E33D292CF10700EE7890 /* LocationRequestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRequestView.swift; sourceTree = "<group>"; };
 		0F75E33F292CF3CC00EE7890 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0F75E343292CFA6500EE7890 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		0FA7104B294DFE87006B92B5 /* SortingMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingMenu.swift; sourceTree = "<group>"; };
 		0FE1E745294785C700DA9D3B /* AppImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppImages.swift; sourceTree = "<group>"; };
 		0FE1E76E2948810900DA9D3B /* LaunchAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAnimationView.swift; sourceTree = "<group>"; };
 		0FE1E7732948903500DA9D3B /* LaunchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewModel.swift; sourceTree = "<group>"; };
@@ -492,6 +494,7 @@
 			isa = PBXGroup;
 			children = (
 				234D787C293B8CB500212ED8 /* LogoSubView.swift */,
+				0FA7104B294DFE87006B92B5 /* SortingMenu.swift */,
 			);
 			path = StaticViews;
 			sourceTree = "<group>";
@@ -731,6 +734,7 @@
 				0FE1E77F2948BB6C00DA9D3B /* MapViewModel.swift in Sources */,
 				0F0F1FFA29365BFF006F9901 /* PlaceView.swift in Sources */,
 				0F0F1FDF29362815006F9901 /* Comments.swift in Sources */,
+				0FA7104C294DFE87006B92B5 /* SortingMenu.swift in Sources */,
 				0F75E338292CE71B00EE7890 /* AboutAppViewModel.swift in Sources */,
 				231D69D5294645D8006C9379 /* LoginViewModel.swift in Sources */,
 				0F75E336292CE42100EE7890 /* WelcomeCardView.swift in Sources */,

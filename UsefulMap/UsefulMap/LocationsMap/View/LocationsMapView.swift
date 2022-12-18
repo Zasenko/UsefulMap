@@ -23,9 +23,15 @@ struct LocationsMapView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                MapView(locations: $locationManager.locations, userCoordinates: $locationManager.userLocation, celectedLocation: $celectedLocation)
+                MapView(locations: $locationManager.filteredPlaces, userCoordinates: $locationManager.userLocation, celectedLocation: $celectedLocation)
                     .ignoresSafeArea()
                 VStack {
+                    HStack {
+                        if locationManager.placeCategories.count > 1 {
+                            SortingMenu(placeCategories: $locationManager.placeCategories, selectedCategory: $locationManager.selectedCategory, filteredPlaces: $locationManager.filteredPlaces, locations: $locationManager.locations)
+                        }
+                        Spacer()
+                    }
                     Spacer()
                     if let location = celectedLocation {
                         NavigationLink {
@@ -34,11 +40,10 @@ struct LocationsMapView: View {
                             PlaceItemView(place: location)
                                 .background(Color.gray)
                                 .cornerRadius(20)
-                                .padding(.horizontal)
                         }
                     }
-                    
                 }//-VStack
+                .padding(.horizontal)
                 if locationManager.isLocationFound == false {
                     ZStack {
                         Color.black.opacity(0.9)

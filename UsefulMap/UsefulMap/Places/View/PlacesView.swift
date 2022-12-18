@@ -11,13 +11,13 @@ struct PlacesView: View {
     
     //MARK: - Properties
     
-    let viewMode: PlacesViewModel
+    let viewModel: PlacesViewModel
     @Binding var city: City
     
     //MARK: - Initialization
     
     init(networkManager: NetworkManager, userViewModel: UserViewModel, city: Binding<City>) {
-        self.viewMode = PlacesViewModel(networkManager: networkManager, userViewModel: userViewModel)
+        self.viewModel = PlacesViewModel(networkManager: networkManager, userViewModel: userViewModel)
         self._city = city
     }
     
@@ -27,7 +27,7 @@ struct PlacesView: View {
         NavigationStack {
             List($city.places) { $place in
                 NavigationLink {
-                    PlaceView(networkManager: viewMode.networkManager, userViewModel: viewMode.userViewModel, place: $place)
+                    PlaceView(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel, place: $place)
                 } label: {
                     PlaceItemView(place: place)
                 }
@@ -41,7 +41,7 @@ struct PlacesView: View {
             )
             .task {
                 if city.places.isEmpty {
-                    city.places = await viewMode.fetchPlacesByCityId(cityId: city.id)
+                    city.places = await viewModel.fetchPlacesByCityId(cityId: city.id)
                 }
             }
             .listStyle(.plain)
