@@ -18,6 +18,7 @@ struct AuthenticationView: View {
     var body: some View {
         if viewModel.isLocationViewOpen {
             LocationRequestView(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel)
+            .environmentObject(viewModel)
         } else {
             LoginView(userViewModel: viewModel.userViewModel, networkManager: viewModel.networkManager, isLocationViewOpen: $viewModel.isLocationViewOpen)
         }

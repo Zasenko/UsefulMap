@@ -73,7 +73,7 @@ struct PlaceView: View {
                     .font(.callout)
                     .padding(.horizontal)
                 Divider()
-                CommentsView(comments: $place.comments)
+                CommentsView(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel, comments: $place.comments, place: $place)
                     .padding()
             }//-VStack
         }//-ScrollView
