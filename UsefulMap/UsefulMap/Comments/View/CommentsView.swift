@@ -17,8 +17,11 @@ struct CommentsView: View {
     @Binding var comments: Comments?
     @Binding var place: Place
     
+    //MARK: - Private properties
+    
     @State private var isCommentViewOpen: Bool = false
     @State private var isLiked: Bool = false
+    @State private var isDisplayAtLaunch = true
     
     //MARK: - Initialization
     
@@ -40,8 +43,13 @@ struct CommentsView: View {
                 }
                 if !isCommentViewOpen {
                     Button {
-                        withAnimation {
+                        if isDisplayAtLaunch {
                             isCommentViewOpen.toggle()
+                            isDisplayAtLaunch = false
+                        } else {
+                            withAnimation {
+                                isCommentViewOpen.toggle()
+                            }
                         }
                     } label: {
                         Text("Написать отзыв")
@@ -72,10 +80,10 @@ struct CommentsView: View {
                     })
             }
             ForEach($comments.toNonOptional()) { $comment in
-                CommentView(comment: $comment)
-                    .onAppear(perform: {
-                        viewModel.isUserLeftCommentFunc()
-                    })
+                CommentView(networkManager: viewModel.networkManager, comment: $comment, isUserNotLoggedIn: $viewModel.isUserNotLoggedIn, userID: viewModel.userViewModel.user.id)
+                        .onAppear(perform: {
+                            viewModel.isUserLeftCommentFunc()
+                        })
             }
         }//-VStack
     }//-body
@@ -117,5 +125,4 @@ struct CommentsView: View {
                 .padding(.vertical)
         }
     }
-
 }

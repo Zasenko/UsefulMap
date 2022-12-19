@@ -223,4 +223,29 @@ extension NetworkManager {
     }
     
     
+    func setResetCommentLike(commentID: String, userID: Int) async throws -> SetResetCommentLikeResult {
+        var urlComponents: URLComponents {
+            var components = URLComponents()
+            components.scheme = scheme
+            components.host = host
+            components.path = "/comment_like.php"
+            components.queryItems = [
+                URLQueryItem(name: "comment_id", value: commentID),
+                URLQueryItem(name: "user_id", value: String(userID))
+            ]
+            return components
+        }
+        guard let url = urlComponents.url else {
+            throw NetworkManagerErrors.bedUrl
+        }
+        let (data, response) = try await URLSession.shared.data(from: url)
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            throw NetworkManagerErrors.invalidStatusCode
+        }
+        guard let decodedAddCommentResult = try? JSONDecoder().decode(SetResetCommentLikeResult.self, from: data) else {
+            throw NetworkManagerErrors.decoderError
+        }
+        return decodedAddCommentResult
+    }
+    
 }

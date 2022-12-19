@@ -60,6 +60,9 @@
 		234D787D293B8CB500212ED8 /* LogoSubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234D787C293B8CB500212ED8 /* LogoSubView.swift */; };
 		234D787F293B8D8400212ED8 /* SizesConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 234D787E293B8D8400212ED8 /* SizesConstants.swift */; };
 		23676571293CE8AB00B4E081 /* Ragistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23676570293CE8AB00B4E081 /* Ragistration.swift */; };
+		23C07515295069FB00768918 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C07514295069FB00768918 /* Comment.swift */; };
+		23C0751729506A1C00768918 /*  SetResetCommentLikeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0751629506A1C00768918 /*  SetResetCommentLikeResult.swift */; };
+		23C0751929506A4600768918 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C0751829506A4600768918 /* CommentViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -118,6 +121,9 @@
 		234D787C293B8CB500212ED8 /* LogoSubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoSubView.swift; sourceTree = "<group>"; };
 		234D787E293B8D8400212ED8 /* SizesConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizesConstants.swift; sourceTree = "<group>"; };
 		23676570293CE8AB00B4E081 /* Ragistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ragistration.swift; sourceTree = "<group>"; };
+		23C07514295069FB00768918 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		23C0751629506A1C00768918 /*  SetResetCommentLikeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " SetResetCommentLikeResult.swift"; sourceTree = "<group>"; };
+		23C0751829506A4600768918 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +200,7 @@
 				0F74B44B293791A2001CB052 /* Places */,
 				0FE1E75C29487B5900DA9D3B /* Place */,
 				0FE1E75E29487B8E00DA9D3B /* Comments */,
+				23C075102950698400768918 /* Comment */,
 				0FE1E76929487EF100DA9D3B /* StaticViews */,
 				0F59FA3329424880002A5DB9 /* GlobalProperties */,
 				0F74B448293790AB001CB052 /* Extentions */,
@@ -427,7 +434,6 @@
 			isa = PBXGroup;
 			children = (
 				0F0F1FEE29365B3E006F9901 /* CommentsView.swift */,
-				0F0F1FEF29365B3E006F9901 /* CommentView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -632,6 +638,41 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		23C075102950698400768918 /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				23C07513295069A400768918 /* Model */,
+				23C075122950699B00768918 /* ViewModel */,
+				23C075112950699300768918 /* View */,
+			);
+			path = Comment;
+			sourceTree = "<group>";
+		};
+		23C075112950699300768918 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0F0F1FEF29365B3E006F9901 /* CommentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		23C075122950699B00768918 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				23C0751829506A4600768918 /* CommentViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		23C07513295069A400768918 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				23C07514295069FB00768918 /* Comment.swift */,
+				23C0751629506A1C00768918 /*  SetResetCommentLikeResult.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -724,6 +765,7 @@
 				0F51F591293B3F9F00F85619 /* Place.swift in Sources */,
 				0F0F1FE429363C63006F9901 /* PlacesView.swift in Sources */,
 				0F5BA0692938EF2700F42213 /* UserViewModel.swift in Sources */,
+				23C0751929506A4600768918 /* CommentViewModel.swift in Sources */,
 				0F0F1FD7293626DC006F9901 /* Cities.swift in Sources */,
 				0F0F1FF129365B3E006F9901 /* CommentsView.swift in Sources */,
 				23343017294694E200DA03A0 /* RegistrationViewModel.swift in Sources */,
@@ -735,6 +777,7 @@
 				234D787D293B8CB500212ED8 /* LogoSubView.swift in Sources */,
 				0F75E31E292CCDA000EE7890 /* UsefulMapApp.swift in Sources */,
 				0FE1E77F2948BB6C00DA9D3B /* MapViewModel.swift in Sources */,
+				23C0751729506A1C00768918 /*  SetResetCommentLikeResult.swift in Sources */,
 				0F0F1FFA29365BFF006F9901 /* PlaceView.swift in Sources */,
 				0F0F1FDF29362815006F9901 /* Comments.swift in Sources */,
 				0FA7104C294DFE87006B92B5 /* SortingMenu.swift in Sources */,
@@ -753,6 +796,7 @@
 				0F5BA06B2938EF4F00F42213 /* Momento.swift in Sources */,
 				0FE1E7772948947800DA9D3B /* LaunchAnimationViewModel.swift in Sources */,
 				0FE1E746294785C700DA9D3B /* AppImages.swift in Sources */,
+				23C07515295069FB00768918 /* Comment.swift in Sources */,
 				0F75E340292CF3CC00EE7890 /* User.swift in Sources */,
 				0F75E33A292CEF4900EE7890 /* RegistrationView.swift in Sources */,
 				234D787F293B8D8400212ED8 /* SizesConstants.swift in Sources */,
