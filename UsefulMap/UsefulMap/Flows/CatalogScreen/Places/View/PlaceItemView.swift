@@ -30,8 +30,11 @@ struct PlaceItemView: View  {
             VStack(alignment: .leading) {
                 Text(place.name)
                     .bold()
-                Text(place.type.rawValue)
-                    .font(.caption2)
+                if let lableString = StaticViewsHelper().categoryName[place.type] {
+                    Text(lableString)
+                        .font(.caption2)
+                }
+                    
                 Text(place.address)
                 if let distance = place.distance {
                     Group {

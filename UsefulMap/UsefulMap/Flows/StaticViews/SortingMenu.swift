@@ -28,15 +28,8 @@ struct SortingMenu: View {
                             self.selectedCategory = categoty
                             filterPlaces()
                         } label: {
-                            switch categoty {
-                            case .cafe:
-                                Text("Кафе")
-                            case .bar:
-                                Text("Бары")
-                            case .restaurant:
-                                Text("Рестораны")
-                            case .club:
-                                Text("Клубы")
+                            if let lableString = StaticViewsHelper().categoryMap[categoty] {
+                                Text(lableString)
                             }
                         }
                     }
@@ -64,20 +57,13 @@ struct SortingMenu: View {
     //MARK: - Private functions
     
     private func filterPlaces() {
-        switch selectedCategory {
-        case .club:
-            filteredPlaces = locations.filter({$0.type == .club})
-            menuText = "Клубы"
-        case .cafe:
-            filteredPlaces = locations.filter({$0.type == .cafe})
-            menuText = "Кафе"
-        case .bar:
-            filteredPlaces = locations.filter({$0.type == .bar})
-            menuText = "Бары"
-        case .restaurant:
-            filteredPlaces = locations.filter({$0.type == .restaurant})
-            menuText = "Рестораны"
-        case .none:
+        let helper = StaticViewsHelper().categoryName
+        
+        if let strongSelectedCategory = selectedCategory,
+           let strongMenuText = helper[strongSelectedCategory] {
+            filteredPlaces = locations.filter({$0.type == strongSelectedCategory})
+            menuText = strongMenuText
+        } else {
             filteredPlaces = locations
             menuText = "Все места"
         }

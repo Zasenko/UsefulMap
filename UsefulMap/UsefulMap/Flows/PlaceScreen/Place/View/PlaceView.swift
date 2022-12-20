@@ -16,13 +16,16 @@ struct PlaceView: View {
     @Environment(\.openURL) var openURL
     @Environment(\.presentationMode) var presentationMode
     @Binding var place: Place
+    
+    //MARK: - Private properties
+    
     @State private var isFavorite: Bool = false
 
     //MARK: - Initialization
     
     init(networkManager: NetworkManager, userViewModel: UserViewModel, place: Binding<Place>) {
-        self.viewModel = PlaceViewModel(networkManager: networkManager, userViewModel: userViewModel)
-        self._place = place
+        viewModel = PlaceViewModel(networkManager: networkManager, userViewModel: userViewModel)
+        _place = place
     }
     
     //MARK: - Body
