@@ -11,7 +11,7 @@ struct LocationsMapView: View {
     
     //MARK: - Properties
     
-    @ObservedObject var locationManager: LocationManager
+    @ObservedObject var viewModel: LocationRequestViewModel
     let userViewModel: UserViewModel
     
     //MARK: - Private properties
@@ -23,19 +23,19 @@ struct LocationsMapView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                MapView(locations: $locationManager.filteredPlaces, userCoordinates: $locationManager.userLocation, celectedLocation: $celectedLocation)
+                MapView(locations: $viewModel.filteredPlaces, userCoordinates: $viewModel.userLocation, celectedLocation: $celectedLocation)
                     .ignoresSafeArea()
                 VStack {
                     HStack {
-                        if locationManager.placeCategories.count > 1 {
-                            SortingMenu(placeCategories: $locationManager.placeCategories, selectedCategory: $locationManager.selectedCategory, filteredPlaces: $locationManager.filteredPlaces, locations: $locationManager.locations)
+                        if viewModel.placeCategories.count > 1 {
+                            SortingMenu(placeCategories: $viewModel.placeCategories, selectedCategory: $viewModel.selectedCategory, filteredPlaces: $viewModel.filteredPlaces, locations: $viewModel.locations)
                         }
                         Spacer()
                     }
                     Spacer()
                     if let location = celectedLocation {
                         NavigationLink {
-                            PlaceView(networkManager: locationManager.networkManager, userViewModel: userViewModel, place: $celectedLocation.placeToNonOptional())
+                            PlaceView(networkManager: viewModel.networkManager, userViewModel: userViewModel, place: $celectedLocation.placeToNonOptional())
                         } label: {
                             PlaceItemView(place: location)
                                 .background(Color.gray)
@@ -44,7 +44,7 @@ struct LocationsMapView: View {
                     }
                 }//-VStack
                 .padding(.horizontal)
-                if locationManager.isLocationFound == false {
+                if viewModel.isLocationFound == false {
                     ZStack {
                         Color.black.opacity(0.9)
                         VStack {
@@ -53,7 +53,7 @@ struct LocationsMapView: View {
                                 .padding()
                                 .multilineTextAlignment(.center)
                             Button {
-                                locationManager.authorizationStatus = .denied
+                                viewModel.authorizationStatus = .denied
                             } label: {
                                 Text("Перейти к каталогу")
                                     .foregroundColor(.white)

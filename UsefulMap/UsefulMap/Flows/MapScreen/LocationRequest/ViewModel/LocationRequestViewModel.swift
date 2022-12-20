@@ -1,5 +1,5 @@
 //
-//  LocationManager.swift
+//  LocationRequestViewModel.swift
 //  UsefulMap
 //
 //  Created by Dmitry Zasenko on 30.11.22.
@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 
 @MainActor
-class LocationManager: NSObject, ObservableObject {
+class LocationRequestViewModel: NSObject, ObservableObject {
     
     //MARK: - Properties
     
@@ -22,6 +22,7 @@ class LocationManager: NSObject, ObservableObject {
     @Published var placeCategories: [PlaceType] = []
 
     let networkManager: NetworkManager
+    let userViewModel: UserViewModel
     
     //MARK: - Private properties
     
@@ -29,8 +30,9 @@ class LocationManager: NSObject, ObservableObject {
     
     //MARK: - Initialization
     
-    init(networkManager: NetworkManager) {
+    init(networkManager: NetworkManager, userViewModel: UserViewModel) {
         self.networkManager = networkManager
+        self.userViewModel = userViewModel
         self.locationManager = CLLocationManager()
         self.authorizationStatus = locationManager.authorizationStatus
         super.init()
@@ -45,7 +47,7 @@ class LocationManager: NSObject, ObservableObject {
     }
 }
 
-extension LocationManager: CLLocationManagerDelegate {
+extension LocationRequestViewModel: CLLocationManagerDelegate {
     
     //MARK: - Functions
     
@@ -72,14 +74,7 @@ extension LocationManager: CLLocationManagerDelegate {
     }
 }
 
-extension Sequence where Element: Hashable {
-    func uniqued() -> [Element] {
-        var set = Set<Element>()
-        return filter { set.insert($0).inserted }
-    }
-}
-
-extension LocationManager {
+extension LocationRequestViewModel {
     
     //MARK: - Private functions
     

@@ -11,33 +11,29 @@ struct LocationRequestView: View {
     
     //MARK: - Properties
     
-    @StateObject var locationManager: LocationManager
-    let networkManager: NetworkManager
-    let userViewModel: UserViewModel
+    @StateObject var viewModel: LocationRequestViewModel
     
     //MARK: - Initialization
     
     init(networkManager: NetworkManager, userViewModel: UserViewModel) {
-        self.networkManager = networkManager
-        self.userViewModel = userViewModel
-        self._locationManager = StateObject(wrappedValue: LocationManager(networkManager: networkManager))
+        _viewModel = StateObject(wrappedValue: LocationRequestViewModel(networkManager: networkManager, userViewModel: userViewModel))
         }
     
     //MARK: - Body
     
     var body: some View {
-        switch locationManager.authorizationStatus {
+        switch viewModel.authorizationStatus {
         case .notDetermined:
             AppImages.mapBackground
                 .resizable()
                 .blur(radius: 10)
                 .ignoresSafeArea()
         case .restricted, .denied:
-            СountriesView(networkManager: networkManager, userViewModel: userViewModel)
+            СountriesView(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel)
         case .authorizedAlways, .authorizedWhenInUse:
-            LocationsMapView(locationManager: locationManager, userViewModel: userViewModel)
+            LocationsMapView(viewModel: viewModel, userViewModel: viewModel.userViewModel)
         default:
-            СountriesView(networkManager: networkManager, userViewModel: userViewModel)
+            СountriesView(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel)
         }
     }
 }
