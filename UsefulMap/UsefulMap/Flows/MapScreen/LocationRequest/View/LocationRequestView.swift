@@ -31,7 +31,7 @@ struct LocationRequestView: View {
         case .restricted, .denied:
             СountriesView(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel)
         case .authorizedAlways, .authorizedWhenInUse:
-            LocationsMapView(viewModel: viewModel, userViewModel: viewModel.userViewModel)
+            LocationsMapView(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel, locationRequestviewModel: viewModel)
         default:
             СountriesView(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel)
         }

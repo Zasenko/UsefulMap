@@ -26,8 +26,8 @@ class RegistrationViewModel: ObservableObject {
     init(networkManager: NetworkManager, userViewModel: UserViewModel, isLocationViewOpen: Binding<Bool>, isRegistrationViewOpen: Binding<Bool>) {
         self.networkManager = networkManager
         self.userViewModel = userViewModel
-        self._isLocationViewOpen = isLocationViewOpen
-        self._isRegistrationViewOpen = isRegistrationViewOpen
+        _isLocationViewOpen = isLocationViewOpen
+        _isRegistrationViewOpen = isRegistrationViewOpen
     }
 }
 

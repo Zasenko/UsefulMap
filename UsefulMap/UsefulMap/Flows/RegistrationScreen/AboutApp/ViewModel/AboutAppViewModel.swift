@@ -9,6 +9,8 @@ import Foundation
 
 class AboutAppViewModel {
     
+    //MARK: - Properties
+    
     var cards: [WelcomeCard] = [
         WelcomeCard(id: 1, image: "hiOne", text: "Просмотр ближайших от тебя баров, кафе, а также ресторанов"),
         WelcomeCard(id: 2, image: "hiTwo", text: "Добавление любимых локаций в избранное"),

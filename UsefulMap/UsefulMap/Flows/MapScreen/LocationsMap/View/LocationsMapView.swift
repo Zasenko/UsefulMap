@@ -11,19 +11,22 @@ struct LocationsMapView: View {
     
     //MARK: - Properties
     
-    @ObservedObject var viewModel: LocationRequestViewModel
-    let userViewModel: UserViewModel
+    @StateObject var viewModel: LocationsMapViewModel
+    @ObservedObject var locationRequestviewModel: LocationRequestViewModel
     
     //MARK: - Private properties
-    
-    @State private var celectedLocation: Place?
+        
+    init(networkManager: NetworkManager, userViewModel: UserViewModel, locationRequestviewModel: LocationRequestViewModel) {
+        _viewModel = StateObject(wrappedValue: LocationsMapViewModel(networkManager: networkManager, userViewModel: userViewModel))
+        self.locationRequestviewModel = locationRequestviewModel
+    }
     
     //MARK: - Body
     
     var body: some View {
         NavigationStack {
             ZStack {
-                MapView(locations: $viewModel.filteredPlaces, userCoordinates: $viewModel.userLocation, celectedLocation: $celectedLocation)
+                MapView(locations: $viewModel.filteredPlaces, userCoordinates: $locationRequestviewModel.userLocation, celectedLocation: $viewModel.celectedLocation)
                     .ignoresSafeArea()
                 VStack {
                     HStack {
@@ -33,9 +36,9 @@ struct LocationsMapView: View {
                         Spacer()
                     }
                     Spacer()
-                    if let location = celectedLocation {
+                    if let location = viewModel.celectedLocation {
                         NavigationLink {
-                            PlaceView(networkManager: viewModel.networkManager, userViewModel: userViewModel, place: $celectedLocation.placeToNonOptional())
+                            PlaceView(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel, place: $viewModel.celectedLocation.placeToNonOptional())
                         } label: {
                             PlaceItemView(place: location)
                                 .background(Color.gray)
@@ -53,7 +56,7 @@ struct LocationsMapView: View {
                                 .padding()
                                 .multilineTextAlignment(.center)
                             Button {
-                                viewModel.authorizationStatus = .denied
+                                locationRequestviewModel.authorizationStatus = .denied
                             } label: {
                                 Text("Перейти к каталогу")
                                     .foregroundColor(.white)
@@ -66,6 +69,13 @@ struct LocationsMapView: View {
                     .ignoresSafeArea()
                 }
             }//-ZStack
+            .onChange(of: locationRequestviewModel.userLocation) { newLocation in
+                guard let userLocation = newLocation else { return }
+                locationRequestviewModel.locationManager.stopUpdatingLocation()
+                Task {
+                    await viewModel.fetchPlacesByUserLocation(latitude: userLocation.latitude, longitude: userLocation.longitude)
+                }
+            }
         }//-NavigationStack
     }
 }

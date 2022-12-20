@@ -26,7 +26,7 @@ class LoginViewModel: ObservableObject {
     init(userViewModel: UserViewModel, networkManager: NetworkManager, isLocationViewOpen: Binding<Bool>) {
         self.userViewModel = userViewModel
         self.networkManager = networkManager
-        self._isLocationViewOpen = isLocationViewOpen
+        _isLocationViewOpen = isLocationViewOpen
     }
 }
 

@@ -12,7 +12,6 @@ class MapViewModel: ObservableObject {
     //MARK: - Properties
     
     let defaultRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(), latitudinalMeters: 5000, longitudinalMeters: 5000)
-    
 }
 
 extension MapViewModel {
