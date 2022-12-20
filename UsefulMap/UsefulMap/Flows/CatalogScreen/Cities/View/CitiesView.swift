@@ -17,8 +17,8 @@ struct CitiesView: View {
     //MARK: - Initialization
     
     init(networkManager: NetworkManager, userViewModel: UserViewModel, country: Binding<Country>) {
-        self.viewModel = CitiesViewModel(networkManager: networkManager, userViewModel: userViewModel)
-        self._country = country
+        viewModel = CitiesViewModel(networkManager: networkManager, userViewModel: userViewModel)
+        _country = country
     }
     
     //MARK: - Body
