@@ -16,4 +16,5 @@ struct AppImages {
     static let iconRestaurant = UIImage(named: "restaurantIcon")
     static let iconCafe = UIImage(named: "cafeIcon")
     static let iconClub = UIImage(named: "clubIcon")
+    static let logoPin = Image("logo")
 }
