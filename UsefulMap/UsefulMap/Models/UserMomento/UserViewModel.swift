@@ -9,17 +9,19 @@ import Foundation
 
 class UserViewModel {
     
-    //MARK: - Properties
-    
-    var user = User()
-    
     //MARK: - Private properties
     
     private let userMomento = Momento()
     
+    private(set) var user: User {
+        didSet {
+            userMomento.save(user: self.user)
+        }
+    }
+    
     //MARK: - Init
     
-    init() {
+    private init() {
         self.user = self.userMomento.loadUser()
     }
 }
