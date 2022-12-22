@@ -40,7 +40,7 @@ struct LocationsMapView: View {
                         NavigationLink {
                             PlaceView(viewModel: PlaceViewModel(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel, place: $viewModel.celectedLocation.placeToNonOptional()))
                         } label: {
-                            PlaceItemView(place: location)
+                            PlaceMapItemView(place: location)
                                 .background(Color.gray)
                                 .cornerRadius(20)
                         }
