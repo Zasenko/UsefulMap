@@ -21,7 +21,7 @@ struct PlacesView: View {
                 NavigationLink {
                     PlaceView(viewModel: PlaceViewModel(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel, place: $place))
                 } label: {
-                    PlaceItemView(place: place)
+                    PlaceItemView(place: $place)
                 }
                 .listRowBackground(Color.clear)
             }

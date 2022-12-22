@@ -33,7 +33,7 @@ extension PlacesViewModel {
         if city.places.isEmpty {
             do {
                 let places = try await networkManager.getAllPlacesByCityId(cityId: city.id)
-                if let likedPlaces = await userViewModel.checkAndGetPlacesWithLikes(places: city.places) {
+                if let likedPlaces = await userViewModel.checkAndGetPlacesWithLikes(places: places) {
                     city.places = likedPlaces
                     return
                 }

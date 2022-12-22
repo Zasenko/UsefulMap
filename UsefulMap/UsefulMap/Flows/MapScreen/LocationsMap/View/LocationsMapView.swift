@@ -36,13 +36,14 @@ struct LocationsMapView: View {
                         Spacer()
                     }
                     Spacer()
-                    if let location = viewModel.celectedLocation {
+                    if viewModel.celectedLocation != nil {
                         NavigationLink {
                             PlaceView(viewModel: PlaceViewModel(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel, place: $viewModel.celectedLocation.placeToNonOptional()))
                         } label: {
-                            PlaceMapItemView(place: location)
-                                .background(Color.gray)
+                            PlaceMapItemView(place: $viewModel.celectedLocation.placeToNonOptional())
+                                .background(.ultraThinMaterial)
                                 .cornerRadius(20)
+                                .shadow(radius: 10)
                         }
                     }
                 }//-VStack

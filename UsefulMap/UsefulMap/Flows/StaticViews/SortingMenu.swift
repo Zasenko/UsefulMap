@@ -47,6 +47,7 @@ struct SortingMenu: View {
                     .background(.ultraThinMaterial)
                     .foregroundColor(.black)
                     .clipShape(Circle())
+                    .shadow(radius: 10)
             }
             Text(menuText)
                 .font(.title2)
