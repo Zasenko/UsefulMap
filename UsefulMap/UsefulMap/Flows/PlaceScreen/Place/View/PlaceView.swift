@@ -34,15 +34,8 @@ struct PlaceView: View {
         ScrollView(showsIndicators: true) {
             VStack {
                 ZStack(alignment: .bottom) {
-                    AsyncImage(url: URL(string: place.photo)) { image in
-                        image
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 1.5)
-                    } placeholder: {
-                        ProgressView()
-                    }
-                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 1.5)
+                    CachedImageView(viewModel: CachedImageViewModel(url: place.photo))
+                        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 1.5)
                     HStack {
                         Button {
                         action: do {
