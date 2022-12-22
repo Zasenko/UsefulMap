@@ -222,5 +222,28 @@ extension NetworkManager {
         return decodedAddCommentResult
     }
     
-    
+    func likePlace(placeId: Int, userId: Int) async throws -> LikeResult {
+        var urlComponents: URLComponents {
+            var components = URLComponents()
+            components.scheme = scheme
+            components.host = host
+            components.path = "/place_like.php"
+            components.queryItems = [
+                URLQueryItem(name: "place_id", value: String(placeId)),
+                URLQueryItem(name: "user_id", value: String(userId))
+            ]
+            return components
+        }
+        guard let url = urlComponents.url else {
+            throw NetworkManagerErrors.bedUrl
+        }
+        let (data, response) = try await URLSession.shared.data(from: url)
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            throw NetworkManagerErrors.invalidStatusCode
+        }
+        guard let decodedLike = try? JSONDecoder().decode(LikeResult.self, from: data) else {
+            throw NetworkManagerErrors.decoderError
+        }
+        return decodedLike
+    }
 }

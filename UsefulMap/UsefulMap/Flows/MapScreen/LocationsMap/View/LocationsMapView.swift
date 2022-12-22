@@ -38,7 +38,7 @@ struct LocationsMapView: View {
                     Spacer()
                     if let location = viewModel.celectedLocation {
                         NavigationLink {
-                            PlaceView(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel, place: $viewModel.celectedLocation.placeToNonOptional())
+                            PlaceView(viewModel: PlaceViewModel(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel, place: $viewModel.celectedLocation.placeToNonOptional()))
                         } label: {
                             PlaceItemView(place: location)
                                 .background(Color.gray)

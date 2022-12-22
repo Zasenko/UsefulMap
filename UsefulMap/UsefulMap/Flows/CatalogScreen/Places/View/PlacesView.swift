@@ -12,22 +12,14 @@ struct PlacesView: View {
     //MARK: - Properties
     
     let viewModel: PlacesViewModel
-    @Binding var city: City
-    
-    //MARK: - Initialization
-    
-    init(networkManager: NetworkManager, userViewModel: UserViewModel, city: Binding<City>) {
-        viewModel = PlacesViewModel(networkManager: networkManager, userViewModel: userViewModel)
-        _city = city
-    }
     
     //MARK: - Body
     
     var body: some View {
         NavigationStack {
-            List($city.places) { $place in
+            List(viewModel.$city.places) { $place in
                 NavigationLink {
-                    PlaceView(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel, place: $place)
+                    PlaceView(viewModel: PlaceViewModel(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel, place: $place))
                 } label: {
                     PlaceItemView(place: place)
                 }
@@ -40,12 +32,10 @@ struct PlacesView: View {
                     .ignoresSafeArea()
             )
             .task {
-                if city.places.isEmpty {
-                    city.places = await viewModel.fetchPlacesByCityId(cityId: city.id)
-                }
+                await viewModel.fetchPlacesByCityId()
             }
             .listStyle(.plain)
-            .navigationTitle(city.name)
+            .navigationTitle(viewModel.city.name)
             .toolbar {
                 ToolbarItem {
                     Button {

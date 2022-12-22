@@ -35,17 +35,42 @@ extension LocationsMapViewModel {
     
     @MainActor
     func fetchPlacesByUserLocation(latitude: Double, longitude: Double) async {
-         do {
-             let places = try await networkManager.getAllPlacesByUserLocation(latitude: latitude, longitude: longitude)
-             if places.isEmpty {
+        do {
+            let places = try await networkManager.getAllPlacesByUserLocation(latitude: latitude, longitude: longitude)
+            if places.isEmpty {
                 isLocationFound = false
-             } else {
-                 locations = places
-                 filteredPlaces = places
-                 placeCategories = places.map( { $0.type} ).uniqued()
-             }
-         } catch {
-             debugPrint("Error: ", error)
-         }
-     }
+                return
+            }
+            if let likedPlaces = await userViewModel.checkAndGetPlacesWithLikes(places: places) {
+                locations = likedPlaces
+                filteredPlaces = likedPlaces
+                placeCategories = likedPlaces.map( { $0.type} ).uniqued()
+                return
+            }
+            locations = places
+            filteredPlaces = places
+            placeCategories = places.map( { $0.type} ).uniqued()
+        } catch {
+            debugPrint("Error: ", error)
+            isLocationFound = false
+        }
+    }
+    
+    //MARK: - Private functions
+    
+    private func checkLikesCoincidence(userPlacesId: [Int], placesId: [Int]) async -> Bool {
+        return userPlacesId.filter { placesId.contains($0) }.count > 0
+    }
+    
+    private func changingLikeStatus(places: Places, userLikedPlaceId: [Int]) async -> Places {
+        var newPlaces: Places = []
+        for i in places {
+            var place = i
+            if userLikedPlaceId.contains(where: {$0 == i.id }) {
+                place.isLiked.toggle()
+            }
+            newPlaces.append(place)
+        }
+        return newPlaces
+    }
 }
