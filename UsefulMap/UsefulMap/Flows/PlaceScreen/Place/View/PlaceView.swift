@@ -22,7 +22,7 @@ struct PlaceView: View {
         ScrollView(showsIndicators: true) {
             VStack {
                 ZStack(alignment: .bottom) {
-                    CachedImageView(viewModel: CachedImageViewModel(url: place.photo))
+                    CachedImageView(viewModel: CachedImageViewModel(url: viewModel.place.photo))
                         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 1.5)
                     HStack {
                         Button {
