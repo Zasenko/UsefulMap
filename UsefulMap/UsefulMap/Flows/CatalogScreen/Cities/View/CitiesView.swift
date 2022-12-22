@@ -32,7 +32,7 @@ struct CitiesView: View {
                     .ignoresSafeArea()
                 List($country.cities) { $city in
                     NavigationLink {
-                        PlacesView(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel, city: $city)
+                        PlacesView(viewModel: PlacesViewModel(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel, city: $city))
                     } label: {
                         Text(city.name)
                             .padding(.vertical, 10)

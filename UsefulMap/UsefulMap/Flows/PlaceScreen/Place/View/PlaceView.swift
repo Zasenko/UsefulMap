@@ -15,18 +15,6 @@ struct PlaceView: View {
 
     @Environment(\.openURL) var openURL
     @Environment(\.presentationMode) var presentationMode
-    @Binding var place: Place
-    
-    //MARK: - Private properties
-    
-    @State private var isFavorite: Bool = false
-
-    //MARK: - Initialization
-    
-    init(networkManager: NetworkManager, userViewModel: UserViewModel, place: Binding<Place>) {
-        viewModel = PlaceViewModel(networkManager: networkManager, userViewModel: userViewModel)
-        _place = place
-    }
     
     //MARK: - Body
     
@@ -34,12 +22,12 @@ struct PlaceView: View {
         ScrollView(showsIndicators: true) {
             VStack {
                 ZStack(alignment: .bottom) {
-                    CachedImageView(viewModel: CachedImageViewModel(url: place.photo))
+                    CachedImageView(viewModel: CachedImageViewModel(url: viewModel.place.photo))
                         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 1.5)
                     HStack {
                         Button {
                         action: do {
-                            guard let url = URL(string: "tel://" + String(place.phone ?? 12345)) else { return }
+                            guard let url = URL(string: "tel://" + String(viewModel.place.phone ?? 12345)) else { return }
                             UIApplication.shared.open(url)
                             print(url)
                         }
@@ -51,10 +39,10 @@ struct PlaceView: View {
                                 .background(.gray)
                                 .cornerRadius(15)
                         }
-                        if let www = place.www, www.isEmpty == false {
+                        if let www = viewModel.place.www, www.isEmpty == false {
                             Button {
                             action: do {
-                                openURL(URL(string: place.www ?? "google.com")!)
+                                openURL(URL(string: viewModel.place.www ?? "google.com")!)
                             }
                             } label: {
                                 Text("Перейти на сайт")
@@ -68,25 +56,23 @@ struct PlaceView: View {
                     }
                     .padding(.bottom, 20)
                 }
-                Text(place.address)
+                Text(viewModel.place.address)
                     .bold()
                     .foregroundColor(.black)
                     .padding()
                     .padding(.bottom, 10)
-                Text(place.description ?? "")
+                Text(viewModel.place.description ?? "")
                     .lineSpacing(5)
                     .font(.callout)
                     .padding(.horizontal)
                 Divider()
-                CommentsView(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel, comments: $place.comments, place: $place)
+                CommentsView(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel, comments: viewModel.$place.comments, place: viewModel.$place)
                     .padding()
             }//-VStack
         }//-ScrollView
         .edgesIgnoringSafeArea(.top)
         .task {
-            if place.description == nil {
-                place = await viewModel.fetchPlaceById(placeId: place.id, place: place)
-            }
+            await viewModel.fetchPlaceById()
         }
         .toolbar {
             ToolbarItem(placement: .cancellationAction) {
@@ -98,25 +84,20 @@ struct PlaceView: View {
                 }
             }
             ToolbarItem(placement: .principal) {
-                Text(place.name)
+                Text(viewModel.place.name)
                     .foregroundColor(.white)
                     .font(.title3)
                     .bold()
             }
             ToolbarItem {
-                HStack {
-                    if viewModel.userViewModel.isUserLoggedIn() {
-                        Button {
-                            isFavorite.toggle()
-                        } label: {
-                            Image(systemName: isFavorite ? "heart.fill" : "heart")
-                                .foregroundColor(.red)
-                        }
-                    }
+                if viewModel.userViewModel.isUserLoggedIn() {
                     Button {
+                        Task {
+                            await viewModel.likePlace()
+                        }
                     } label: {
-                        Image(systemName: "line.3.horizontal")
-                            .foregroundColor(.white)
+                        Image(systemName: viewModel.place.isLiked ? "heart.fill" : "heart")
+                            .foregroundColor(.red)
                     }
                 }
             }

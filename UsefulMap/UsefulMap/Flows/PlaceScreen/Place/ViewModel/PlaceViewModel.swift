@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class PlaceViewModel {
     
@@ -14,11 +15,14 @@ class PlaceViewModel {
     let networkManager: NetworkManager
     let userViewModel: UserViewModel
     
+    @Binding var place: Place
+    
     //MARK: - Initialization
     
-    init(networkManager: NetworkManager, userViewModel: UserViewModel) {
+    init(networkManager: NetworkManager, userViewModel: UserViewModel, place: Binding<Place>) {
         self.networkManager = networkManager
         self.userViewModel = userViewModel
+        _place = place
     }
 }
 
@@ -27,12 +31,44 @@ extension PlaceViewModel {
     //MARK: - Functions
     
     @MainActor
-    func fetchPlaceById(placeId: Int, place: Place) async -> Place {
+    func fetchPlaceById() async {
+        if place.description == nil {
+            do {
+                var decodedPlace = try await networkManager.getPlaceInfoById(placeId: place.id)
+                guard let userLikedPlace = userViewModel.user.savedPlaces,
+                      userLikedPlace.count > 0 else {
+                    place = decodedPlace
+                    return
+                }
+                if userLikedPlace.contains(where: {$0.id == decodedPlace.id } ) {
+                    decodedPlace.isLiked.toggle()
+                }
+                place = decodedPlace
+            } catch {
+                debugPrint("Error: ", error)
+            }
+        }
+    }
+    
+    @MainActor
+    func likePlace() async {
+        guard let userId = userViewModel.user.id else {
+            return
+        }
         do {
-            return try await networkManager.getPlaceInfoById(placeId: placeId)
+            let result = try await networkManager.likePlace(placeId: place.id, userId: userId)
+            switch result.result {
+            case .error:
+                return
+            case .liked:
+                userViewModel.likePlace(placeId: place.id)
+                place.isLiked = true
+            case .disliked:
+                userViewModel.dislikePlace(placeId: place.id)
+                place.isLiked = false
+            }
         } catch {
             debugPrint("Error: ", error)
-            return place
         }
     }
 }
