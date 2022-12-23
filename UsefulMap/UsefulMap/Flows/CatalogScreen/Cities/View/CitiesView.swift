@@ -46,14 +46,6 @@ struct CitiesView: View {
                 }
                 .listStyle(.plain)
                 .navigationTitle(country.name)
-                .toolbar {
-                    ToolbarItem {
-                        Button {
-                        } label: {
-                            Image(systemName: "line.3.horizontal")
-                        }
-                    }
-                }
             }//-ZStack
         }//-NavigationStack
         .tint(.black)

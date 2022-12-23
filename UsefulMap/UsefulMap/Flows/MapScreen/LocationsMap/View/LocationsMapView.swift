@@ -41,7 +41,7 @@ struct LocationsMapView: View {
                             PlaceView(viewModel: PlaceViewModel(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel, place: $viewModel.celectedLocation.placeToNonOptional()))
                         } label: {
                             PlaceMapItemView(place: $viewModel.celectedLocation.placeToNonOptional())
-                                .background(.ultraThinMaterial)
+                                .background(.thinMaterial)
                                 .cornerRadius(20)
                                 .shadow(radius: 10)
                         }

@@ -36,14 +36,6 @@ struct PlacesView: View {
             }
             .listStyle(.plain)
             .navigationTitle(viewModel.city.name)
-            .toolbar {
-                ToolbarItem {
-                    Button {
-                    } label: {
-                        Image(systemName: "line.3.horizontal")
-                    }
-                }
-            }
         }//-NavigationStack
         .tint(.black)
     }

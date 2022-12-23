@@ -44,10 +44,10 @@ struct SortingMenu: View {
                 Image(systemName: "line.3.horizontal.decrease")
                     .bold()
                     .padding()
-                    .background(.ultraThinMaterial)
+                    .background(.thickMaterial)
                     .foregroundColor(.black)
                     .clipShape(Circle())
-                    .shadow(radius: 10)
+                    .shadow(radius: 5)
             }
             Text(menuText)
                 .font(.title2)
@@ -58,7 +58,7 @@ struct SortingMenu: View {
     //MARK: - Private functions
     
     private func filterPlaces() {
-        let helper = StaticViewsHelper().categoryName
+        let helper = StaticViewsHelper().categoryMap
         
         if let strongSelectedCategory = selectedCategory,
            let strongMenuText = helper[strongSelectedCategory] {

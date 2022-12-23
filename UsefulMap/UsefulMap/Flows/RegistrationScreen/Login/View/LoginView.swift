@@ -33,6 +33,7 @@ struct LoginView: View {
                 .frame(width: SizesConstants.screeenWidth/1.5, height: 70)
             Group {
                 TextField("Email", text: $viewModel.login, onEditingChanged: {_ in viewModel.error = ""})
+                    .keyboardType(.emailAddress)
                 SecureField("Password", text: $viewModel.password)
             }
             .textFieldStyle(RoundedBorderTextFieldStyle())

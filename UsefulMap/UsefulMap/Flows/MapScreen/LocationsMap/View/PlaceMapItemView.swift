@@ -14,41 +14,46 @@ struct PlaceMapItemView: View  {
     @Binding var place: Place
     
     //MARK: - Body
-
+    
     var body: some View {
         HStack {
             MapImageView(viewModel: CachedImageViewModel(url: place.photo))
                 .frame(width: 100, height: 100)
-                .cornerRadius(10)
+                .cornerRadius(20)
             VStack(alignment: .leading) {
-                HStack {
+                HStack(alignment: .top) {
                     if place.isLiked {
                         Image(systemName: "heart.fill")
+                            .resizable()
+                            .frame(width: 20, height: 20)
                             .foregroundColor(.red)
                     }
                     Text(place.name)
-                        .bold()
+                        .font(.headline)
                 }
-                
+                .padding(.bottom, 4)
                 if let lableString = StaticViewsHelper().categoryName[place.type] {
                     Text(lableString)
-                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                        .font(.caption)
                 }
-                    
                 Text(place.address)
+                    .font(.subheadline)
+                    .lineLimit(1)
                 if let distance = place.distance {
                     Group {
-                        Text("Дистанция: ")
-                        + Text(String(format:"%.1f", distance))
+                        Text("Дистанция: ") + Text(String(format:"%.1f", distance)) + Text(" км.")
                     }
                     .font(.caption)
+                    .foregroundColor(.secondary)
                 }
             }//-VStack
             .multilineTextAlignment(.leading)
             .foregroundColor(.black)
-            Spacer()
+            .padding(.leading, 10)
+            Spacer(minLength: 4)
             Image(systemName: "chevron.right")
-                .padding()
+                .padding(.trailing, 8)
                 .foregroundColor(.black)
                 .bold()
         }//-HStack

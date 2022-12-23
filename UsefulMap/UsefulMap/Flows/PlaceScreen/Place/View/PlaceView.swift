@@ -81,6 +81,7 @@ struct PlaceView: View {
                 } label: {
                     Image(systemName: "chevron.backward")
                         .foregroundColor(.white)
+                        .bold()
                 }
             }
             ToolbarItem(placement: .principal) {
@@ -97,7 +98,11 @@ struct PlaceView: View {
                         }
                     } label: {
                         Image(systemName: viewModel.place.isLiked ? "heart.fill" : "heart")
-                            .foregroundColor(.red)
+                            .resizable()
+                            .scaledToFit()
+                            .foregroundColor(viewModel.place.isLiked ? .red : .white)
+                            .frame(width: 28, height: 28)
+                            .bold()
                     }
                 }
             }

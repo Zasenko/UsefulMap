@@ -20,24 +20,30 @@ struct PlaceItemView: View  {
             CachedImageView(viewModel: CachedImageViewModel(url: place.photo))
                 .frame(width: 100, height: 100)
                 .cornerRadius(10)
+                .shadow(radius: 5)
             VStack(alignment: .leading) {
-                HStack {
+                HStack(alignment: .top) {
                     if place.isLiked {
                         Image(systemName: "heart.fill")
+                            .resizable()
+                            .frame(width: 20, height: 20)
                             .foregroundColor(.red)
                     }
                     Text(place.name)
-                        .bold()
+                        .font(.headline)
                 }
+                .padding(.bottom, 4)
                 if let lableString = StaticViewsHelper().categoryName[place.type] {
                     Text(lableString)
-                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                        .font(.caption)
                 }
                 Text(place.address)
+                    .font(.subheadline)
             }//-VStack
             .multilineTextAlignment(.leading)
             .foregroundColor(.black)
-            Spacer()
+            .padding(.leading, 10)
         }//-HStack
     }
 }
