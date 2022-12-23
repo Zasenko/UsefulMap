@@ -66,6 +66,9 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
                 guard error == nil, let route = response?.routes.first else {
                     return
                 }
+                if !mapView.overlays.isEmpty {
+                    mapView.removeOverlays(mapView.overlays)
+                }
                 mapView.addOverlay(route.polyline)
             }
             directions.cancel()

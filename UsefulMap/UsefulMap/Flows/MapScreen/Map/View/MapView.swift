@@ -40,7 +40,7 @@ struct MapView: UIViewRepresentable {
             uiView.removeAnnotations(uiView.annotations)
             uiView.addAnnotations(viewModel.getAnnotation(places: locations))
         }
-        let region = viewModel.getRegion(userLocation: uiView.userLocation.coordinate, locations: locations, celectedLocation: celectedLocation)//(userLocation: uiView.userLocation.coordinate)
+        let region = viewModel.getRegion(userLocation: uiView.userLocation.coordinate, locations: locations, celectedLocation: celectedLocation)
         uiView.setRegion(region, animated: true)
     }
 }
