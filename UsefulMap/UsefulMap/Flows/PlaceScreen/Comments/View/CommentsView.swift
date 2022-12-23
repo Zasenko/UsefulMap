@@ -72,10 +72,14 @@ struct CommentsView: View {
                     })
             }
             ForEach($comments.toNonOptional()) { $comment in
-                CommentView(comment: $comment)
-                    .onAppear(perform: {
-                        viewModel.isUserLeftCommentFunc()
-                    })
+                CommentView(networkManager: viewModel.networkManager,
+                            comment: $comment,
+                            isUserNotLoggedIn: $viewModel.isUserNotLoggedIn,
+                            userID: viewModel.userViewModel.user.id,
+                            authenticationViewModel: authenticationViewModel)
+                        .onAppear(perform: {
+                            viewModel.isUserLeftCommentFunc()
+                        })
             }
         }//-VStack
     }//-body

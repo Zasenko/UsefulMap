@@ -77,4 +77,9 @@ extension UserViewModel {
         }
         return newPlaces
     }
+    
+    func updateLikedUserComments(commentID: Int) {
+        user = userMomento.updateLikedUserComments(user: user, commentID: commentID)
+        saveUser(user: user)
+    }
 }

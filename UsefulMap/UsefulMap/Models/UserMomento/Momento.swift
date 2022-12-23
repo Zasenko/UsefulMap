@@ -42,4 +42,15 @@ extension Momento {
             return User()
         }
     }
+    
+    func updateLikedUserComments(user: User, commentID: Int) -> User {
+        var updatedUser = user
+        if let indexNumberWithComment = user.likedComments?.firstIndex(where: {$0.id == commentID}) {
+            updatedUser.likedComments?.remove(at: indexNumberWithComment)
+        }
+        else {
+            updatedUser.likedComments?.append(UserComment(id: commentID))
+        }
+        return updatedUser
+    }
 }
