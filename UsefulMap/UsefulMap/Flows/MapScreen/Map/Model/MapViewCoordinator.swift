@@ -53,25 +53,31 @@ class MapViewCoordinator: NSObject, MKMapViewDelegate {
         return annotationView
     }
     
-    func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
+    @MainActor func mapView(_ mapView: MKMapView, didSelect annotation: MKAnnotation) {
         if annotation is CustomAnnotation {
-            parent.celectedLocation = parent.locations.first(where: { $0.coordinate == annotation.coordinate })
+            Task {
+                parent.celectedLocation = parent.locations.first(where: { $0.coordinate == annotation.coordinate })
+            }
             let sourceCoordinate = mapView.userLocation.coordinate
             let destinationCoordinate = annotation.coordinate
 
-            directions(from: sourceCoordinate, to: destinationCoordinate).calculate { response, error in
+            let directions = directions(from: sourceCoordinate, to: destinationCoordinate)
+            directions.calculate { response, error in
                 guard error == nil, let route = response?.routes.first else {
                     return
                 }
                 mapView.addOverlay(route.polyline)
             }
+            directions.cancel()
         }
     }
     
-    func mapView(_ mapView: MKMapView, didDeselect annotation: MKAnnotation) {
-        parent.celectedLocation = nil
+    @MainActor func mapView(_ mapView: MKMapView, didDeselect annotation: MKAnnotation) {
         let overlays = mapView.overlays
         mapView.removeOverlays(overlays)
+        Task {
+            parent.celectedLocation = nil
+        }
     }
 }
 

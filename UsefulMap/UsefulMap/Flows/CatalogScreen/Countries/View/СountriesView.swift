@@ -44,15 +44,6 @@ struct СountriesView: View {
                     }
                 }
                 .navigationTitle("Страны")
-                .toolbar {
-                    ToolbarItem {
-                        Button {
-                        } label: {
-                            Image(systemName: "line.3.horizontal")
-                                .foregroundColor(.black)
-                        }
-                    }
-                }
             }//-ZStack
         }//-NavigationStack
         .tint(.black)
