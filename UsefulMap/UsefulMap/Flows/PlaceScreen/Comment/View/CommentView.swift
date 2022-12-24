@@ -31,7 +31,6 @@ struct CommentView: View {
          isUserNotLoggedIn: Binding<Bool>,
          userID:Int?,
          authenticationViewModel: AuthenticationViewModel) {
-        
         self._viewModel = StateObject(wrappedValue: CommentViewModel(networkManager: networkManager, comment: comment, authenticationViewModel: authenticationViewModel))
         self._comment = comment
         self._isUserNotLoggedIn = isUserNotLoggedIn
@@ -57,10 +56,16 @@ struct CommentView: View {
                         }
                         isLikeButtonPressed.toggle()
                     } label: {
-                        Image(systemName: (viewModel.isCommentLike || comment.isCommentLikeCurrentUser) ? "hand.thumbsup.fill" : "hand.thumbsup")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 20, height: 20)
+                        HStack {
+                            Image(systemName: (viewModel.isCommentLike || comment.isCommentLikeCurrentUser) ? "hand.thumbsup.fill" : "hand.thumbsup")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 20, height: 20)
+                                .foregroundColor(comment.isCommentLikeCurrentUser ? .blue : .gray)
+                            Text(String(comment.likesCount))
+                                .font(.footnote.bold())
+                                .foregroundColor(comment.isCommentLikeCurrentUser ? .blue : .gray)
+                        }
                     }
                     .alert(isPresented: Binding(get: {isUserNotLoggedIn && isLikeButtonPressed}, set: {_ in }) , content: {
                         Alert(title: Text("Чтобы лайкнуть отзыв необходимо авторизоваться"),
@@ -76,8 +81,6 @@ struct CommentView: View {
                                                                             isLikeButtonPressed.toggle()
                                                                     })))
                     })
-                    Text(String(comment.likesCount))
-                        .font(.footnote.bold())
                 }//-HStack
                 Text(comment.text)
                     .font(.subheadline)
@@ -95,7 +98,7 @@ struct CommentView: View {
         }
         )
         .padding()
-        .background(.gray)
+        .background(.thinMaterial)
         .cornerRadius(20)
     }
 }

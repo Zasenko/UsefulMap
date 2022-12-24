@@ -69,8 +69,9 @@ struct PlaceView: View {
                 CommentsView(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel, comments: viewModel.$place.comments, place: viewModel.$place)
                     .padding()
             }//-VStack
+            .background(LinearGradient(colors: [.white, .white, .teal, .blue], startPoint: .top, endPoint: .bottom))
         }//-ScrollView
-        .edgesIgnoringSafeArea(.top)
+        .ignoresSafeArea()
         .task {
             await viewModel.fetchPlaceById()
         }

@@ -32,43 +32,49 @@ struct CommentsView: View {
     
     var body: some View {
         VStack {
-            HStack(alignment: .top) {
-                if let comm = comments, comm.isEmpty == false {
-                    Text("Отзывы")
-                        .font(.title)
-                    Spacer()
-                }
-                if !isCommentViewOpen {
-                    Button {
-                        withAnimation {
-                            isCommentViewOpen.toggle()
+            VStack {
+                Spacer()
+                HStack(alignment: .top) {
+                    if let comm = comments, comm.isEmpty == false {
+                        Text("Отзывы")
+                            .font(.title)
+                        Spacer()
+                    }
+                    if !isCommentViewOpen {
+                        Button {
+                            withAnimation {
+                                isCommentViewOpen.toggle()
+                            }
+                        } label: {
+                            Text("Написать отзыв")
+                                .foregroundColor(.white)
+                                .padding(10)
+                                .padding(.horizontal, 10)
+                                .background(.green)
+                                .cornerRadius(15)
+                                .opacity(viewModel.isUserLeftComment ? 0 : 1)
                         }
-                    } label: {
-                        Text("Написать отзыв")
-                            .foregroundColor(.white)
-                            .padding(10)
-                            .padding(.horizontal, 10)
-                            .background(.green)
-                            .cornerRadius(15)
-                            .opacity(viewModel.isUserLeftComment ? 0 : 1)
+                        .disabled(viewModel.isUserLeftComment)
                     }
                 }
             }//-HStac
             .padding()
             if isCommentViewOpen {
                 addCommentView
+                    .transition(.scale.combined(with: .opacity))
+                    .animation(.spring(), value: viewModel.isUserLeftComment)
                     .alert(isPresented: $viewModel.isUserNotLoggedIn, content: {
                         Alert(title: Text("Для размещения отзыва необходимо авторизоваться"),
                               primaryButton: Alert.Button.default(Text("Перейти к авторизации"),
                                                                   action: ({
-                                                                            authenticationViewModel.isLocationViewOpen = false
-                                                                            isCommentViewOpen.toggle()
-                                                                    })),
+                            authenticationViewModel.isLocationViewOpen = false
+                            isCommentViewOpen.toggle()
+                        })),
                               secondaryButton: Alert.Button.cancel(Text("Отмена"),
                                                                    action: ({
-                                                                            viewModel.isUserNotLoggedIn = true
-                                                                            isCommentViewOpen.toggle()
-                                                                    })))
+                            viewModel.isUserNotLoggedIn = true
+                            isCommentViewOpen.toggle()
+                        })))
                     })
             }
             ForEach($comments.toNonOptional()) { $comment in
@@ -77,9 +83,11 @@ struct CommentsView: View {
                             isUserNotLoggedIn: $viewModel.isUserNotLoggedIn,
                             userID: viewModel.userViewModel.user.id,
                             authenticationViewModel: authenticationViewModel)
-                        .onAppear(perform: {
-                            viewModel.isUserLeftCommentFunc()
-                        })
+                .onAppear(perform: {
+                    viewModel.isUserLeftCommentFunc()
+                })
+                .shadow(radius: 8)
+                .padding(.vertical)
             }
         }//-VStack
     }//-body
@@ -88,10 +96,24 @@ struct CommentsView: View {
     
     var addCommentView: some View {
         return VStack {
-            Text("Напиши свой отзыв:")
+            HStack {
+                Text("Напиши свой отзыв:")
+                    .padding(.leading)
+                Spacer()
+                Button {
+                    withAnimation(.spring()){
+                        isCommentViewOpen.toggle()
+                    }
+                } label: {
+                    Image(systemName: "x.circle.fill")
+                        .foregroundColor(.black.opacity(0.5))
+                        .padding(.trailing)
+                }
+
+            }
             TextEditor(text: $viewModel.newCommentText)
                 .padding()
-                .background(Color.yellow.opacity(0.5))
+                .background(.ultraThinMaterial)
                 .frame(height: 100)
                 .cornerRadius(20)
                 .scrollContentBackground(.hidden)
@@ -121,5 +143,5 @@ struct CommentsView: View {
                 .padding(.vertical)
         }
     }
-
+    
 }
