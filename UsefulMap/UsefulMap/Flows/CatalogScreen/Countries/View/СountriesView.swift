@@ -13,11 +13,6 @@ struct СountriesView: View {
     
     @StateObject var viewModel: СountriesViewModel
     
-    //MARK: - Initialization
-    
-    init(networkManager: NetworkManager, userViewModel: UserViewModel) {
-        _viewModel = StateObject(wrappedValue: СountriesViewModel(networkManager: networkManager, userViewModel: userViewModel))
-    }
     
     //MARK: - Body
     
@@ -30,7 +25,7 @@ struct СountriesView: View {
                     .ignoresSafeArea()
                 List ($viewModel.countries) { $country in
                     NavigationLink {
-                        CitiesView(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel, country: $country)
+                        CitiesView(viewModel: CitiesViewModel(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel, country: $country))
                     } label: {
                         Text(country.name)
                             .padding(.vertical, 10)

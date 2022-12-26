@@ -14,13 +14,6 @@ struct LocationsMapView: View {
     @StateObject var viewModel: LocationsMapViewModel
     @ObservedObject var locationRequestviewModel: LocationRequestViewModel
     
-    //MARK: - Private properties
-        
-    init(networkManager: NetworkManager, userViewModel: UserViewModel, locationRequestviewModel: LocationRequestViewModel) {
-        _viewModel = StateObject(wrappedValue: LocationsMapViewModel(networkManager: networkManager, userViewModel: userViewModel))
-        self.locationRequestviewModel = locationRequestviewModel
-    }
-    
     //MARK: - Body
     
     var body: some View {

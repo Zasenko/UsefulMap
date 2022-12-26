@@ -12,12 +12,6 @@ struct RegistrationView: View {
     //MARK: - Properties
 
     @StateObject var viewModel: RegistrationViewModel
-
-    //MARK: - Initialization
-    
-    init(networkManager: NetworkManager, userViewModel: UserViewModel, isLocationViewOpen: Binding<Bool>, isRegistrationViewOpen: Binding<Bool>) {
-        _viewModel = StateObject(wrappedValue: RegistrationViewModel(networkManager: networkManager, userViewModel: userViewModel, isLocationViewOpen: isLocationViewOpen, isRegistrationViewOpen: isRegistrationViewOpen))
-    }
     
     //MARK: - Body
     

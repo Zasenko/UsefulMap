@@ -12,15 +12,7 @@ struct CitiesView: View {
     //MARK: - Properties
     
     let viewModel: CitiesViewModel
-    @Binding var country: Country
-    
-    //MARK: - Initialization
-    
-    init(networkManager: NetworkManager, userViewModel: UserViewModel, country: Binding<Country>) {
-        viewModel = CitiesViewModel(networkManager: networkManager, userViewModel: userViewModel)
-        _country = country
-    }
-    
+
     //MARK: - Body
     
     var body: some View {
@@ -30,7 +22,7 @@ struct CitiesView: View {
                     .resizable()
                     .blur(radius: 10)
                     .ignoresSafeArea()
-                List($country.cities) { $city in
+                List(viewModel.$country.cities) { $city in
                     NavigationLink {
                         PlacesView(viewModel: PlacesViewModel(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel, city: $city))
                     } label: {
@@ -40,12 +32,12 @@ struct CitiesView: View {
                     .listRowBackground(Color.clear)
                 }
                 .task {
-                    if country.cities.isEmpty {
-                        country.cities = await viewModel.fetchCitiesByCountryId(countryId: country.id)
+                    if viewModel.country.cities.isEmpty {
+                        await viewModel.fetchCitiesByCountryId()
                     }
                 }
                 .listStyle(.plain)
-                .navigationTitle(country.name)
+                .navigationTitle(viewModel.country.name)
             }//-ZStack
         }//-NavigationStack
         .tint(.black)
