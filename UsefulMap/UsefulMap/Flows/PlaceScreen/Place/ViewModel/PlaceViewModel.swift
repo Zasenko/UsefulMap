@@ -71,4 +71,20 @@ extension PlaceViewModel {
             debugPrint("Error: ", error)
         }
     }
+    
+    func call() {
+        guard let placePhone = place.phone else {
+            return
+        }
+        let phone = "tel://"
+        let phoneNumberformatted = phone + "+\(placePhone)"
+        guard let url = URL(string: phoneNumberformatted) else {
+            return
+        }
+        UIApplication.shared.open(url)
+    }
+    
+    func getUrl(url string: String) -> URL? {
+        return URL(string: string) ?? nil
+    }
 }

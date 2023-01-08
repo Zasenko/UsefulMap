@@ -12,12 +12,6 @@ struct LoginView: View {
     //MARK: - Properties
     
     @StateObject var viewModel: LoginViewModel
-
-    //MARK: - Initialization
-    
-    init(userViewModel: UserViewModel, networkManager: NetworkManager, isLocationViewOpen: Binding<Bool>) {
-        _viewModel = StateObject(wrappedValue: LoginViewModel(userViewModel: userViewModel, networkManager: networkManager, isLocationViewOpen: isLocationViewOpen))
-    }
     
     //MARK: - Body
     
@@ -80,7 +74,11 @@ struct LoginView: View {
         .fullScreenCover(isPresented: $viewModel.isRegistrationViewOpen) {
             viewModel.isLocationViewOpen = viewModel.userViewModel.isUserLoggedIn()
         } content: {
-            RegistrationView(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel, isLocationViewOpen: $viewModel.isLocationViewOpen, isRegistrationViewOpen: $viewModel.isRegistrationViewOpen)
+            RegistrationView(viewModel: RegistrationViewModel(networkManager: viewModel.networkManager,
+                                                              userViewModel: viewModel.userViewModel,
+                                                              isLocationViewOpen: $viewModel.isLocationViewOpen,
+                                                              isRegistrationViewOpen: $viewModel.isRegistrationViewOpen)
+            )
         }
     }
 }

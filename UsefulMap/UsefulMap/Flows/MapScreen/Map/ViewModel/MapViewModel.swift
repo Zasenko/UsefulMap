@@ -7,7 +7,7 @@
 
 import MapKit
 
-class MapViewModel: ObservableObject {
+class MapViewModel {
     
     //MARK: - Properties
     

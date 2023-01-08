@@ -28,15 +28,17 @@ struct PlaceMapItemView: View  {
                             .frame(width: 20, height: 20)
                             .foregroundColor(.red)
                     }
-                    Text(place.name)
-                        .font(.headline)
+                    VStack(alignment: .leading) {
+                        Text(place.name)
+                            .font(.headline)
+                        if let lableString = StaticViewsHelper().categoryName[place.type] {
+                            Text(lableString)
+                                .foregroundColor(.secondary)
+                                .font(.caption)
+                        }
+                    }
                 }
                 .padding(.bottom, 4)
-                if let lableString = StaticViewsHelper().categoryName[place.type] {
-                    Text(lableString)
-                        .foregroundColor(.secondary)
-                        .font(.caption)
-                }
                 Text(place.address)
                     .font(.subheadline)
                     .lineLimit(1)

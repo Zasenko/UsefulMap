@@ -13,12 +13,6 @@ struct LocationRequestView: View {
     
     @StateObject var viewModel: LocationRequestViewModel
     
-    //MARK: - Initialization
-    
-    init(networkManager: NetworkManager, userViewModel: UserViewModel) {
-        _viewModel = StateObject(wrappedValue: LocationRequestViewModel(networkManager: networkManager, userViewModel: userViewModel))
-        }
-    
     //MARK: - Body
     
     var body: some View {
@@ -29,11 +23,14 @@ struct LocationRequestView: View {
                 .blur(radius: 10)
                 .ignoresSafeArea()
         case .restricted, .denied:
-            СountriesView(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel)
+            СountriesView(viewModel: СountriesViewModel(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel))
         case .authorizedAlways, .authorizedWhenInUse:
-            LocationsMapView(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel, locationRequestviewModel: viewModel)
+            LocationsMapView(viewModel: LocationsMapViewModel(networkManager: viewModel.networkManager,
+                                                              userViewModel: viewModel.userViewModel),
+                             locationRequestviewModel: viewModel
+            )
         default:
-            СountriesView(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel)
+            СountriesView(viewModel: СountriesViewModel(networkManager: viewModel.networkManager, userViewModel: viewModel.userViewModel))
         }
     }
 }
