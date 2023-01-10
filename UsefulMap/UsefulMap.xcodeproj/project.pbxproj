@@ -616,6 +616,7 @@
 			children = (
 				0F5BA05E2938A72200F42213 /* LocationsMapView.swift */,
 				0F4570FC29537C7900914140 /* PlaceMapItemView.swift */,
+				0FA7104B294DFE87006B92B5 /* SortingMenu.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -624,7 +625,6 @@
 			isa = PBXGroup;
 			children = (
 				234D787C293B8CB500212ED8 /* LogoSubView.swift */,
-				0FA7104B294DFE87006B92B5 /* SortingMenu.swift */,
 				23B3620E296D9E2F00964422 /* GeometryGetter.swift */,
 				0F4570EE29537A4400914140 /* CachedImage */,
 			);

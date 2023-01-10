@@ -47,6 +47,11 @@ extension UserViewModel {
         self.user.savedPlaces?.removeAll(where: { $0.id == placeId } )//.append(UserPlace(id: placeId))
     }
     
+    func updateLikedUserComments(commentID: Int) {
+        user = userMomento.updateLikedUserComments(user: user, commentID: commentID)
+        saveUser(user: user)
+    }
+    
     func checkAndGetPlacesWithLikes(places: Places) async -> Places? {
         guard let userLikedPlace = user.savedPlaces, userLikedPlace.count > 0 else {
             return nil
@@ -57,6 +62,20 @@ extension UserViewModel {
             return await changingLikeStatusInPlaces(places: places, userLikedPlaceId: userLikedPlaceId)
         } else {
             return nil
+        }
+    }
+    
+    func checkIfPlaceiSLiked(placeId: Int) async -> Bool {
+        guard let userLikedPlaces = user.savedPlaces, userLikedPlaces.count > 0 else {
+            return false
+        }
+        guard let isLaked = user.savedPlaces?.contains(where: { $0.id == placeId } ) else {
+            return false
+        }
+        if isLaked {
+            return true
+        } else {
+            return false
         }
     }
     
@@ -76,10 +95,5 @@ extension UserViewModel {
             newPlaces.append(place)
         }
         return newPlaces
-    }
-    
-    func updateLikedUserComments(commentID: Int) {
-        user = userMomento.updateLikedUserComments(user: user, commentID: commentID)
-        saveUser(user: user)
     }
 }

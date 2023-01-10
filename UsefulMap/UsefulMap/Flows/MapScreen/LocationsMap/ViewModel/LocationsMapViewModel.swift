@@ -56,6 +56,14 @@ extension LocationsMapViewModel {
         }
     }
     
+    @MainActor
+    func checkLikePlaceStatus() async {
+        guard let sel = celectedLocation?.id else { return }
+        if await userViewModel.checkIfPlaceiSLiked(placeId: sel) {
+            celectedLocation?.isLiked = true
+        }
+    }
+    
     //MARK: - Private functions
     
     private func checkLikesCoincidence(userPlacesId: [Int], placesId: [Int]) async -> Bool {

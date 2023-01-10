@@ -37,6 +37,9 @@ struct LocationsMapView: View {
                                 .background(.thinMaterial)
                                 .cornerRadius(20)
                                 .shadow(radius: 10)
+                                .task {
+                                    await viewModel.checkLikePlaceStatus()
+                                }
                         }
                     }
                 }//-VStack
