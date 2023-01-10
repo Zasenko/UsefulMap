@@ -16,9 +16,14 @@ class LaunchAnimationViewModel: ObservableObject {
     @Published var enlargeAndRotateLogo = false
     @Published var rotateLogo = false
     @Published var moveLogoAndShowAppName = false
-    @Published var showAppName = false
+    @Published var logoTextSize: CGRect = CGRect()
     
     let timeForRoutate: Double = 1
+    let logoSize: CGFloat = SizesConstants.logoSize
+    let textHeightInLogo: CGFloat = SizesConstants.textHeightInLogo
+    let textOffsetFromLogo: CGFloat = SizesConstants.textOffsetFromLogo
+    let rotationAngle:CGFloat = 20
+    let decreaseLogo: CGFloat = 3
     
     //MARK: - Initialization
     
@@ -48,5 +53,21 @@ extension LaunchAnimationViewModel {
                 }
             }
         }
+    }
+    
+    func calculateOffsetOfLogoAtEnd() -> CGFloat {
+        -((logoSize+logoTextSize.width+textOffsetFromLogo)/2 - logoSize/2)
+    }
+    
+    func calculateOffsetTextAtEnd() -> CGFloat {
+        logoSize/2
+    }
+    
+    func calculateOffsetTextOnStartup() -> CGFloat {
+        -(logoTextSize.width + calculateOffsetOfLogoAtEnd())
+    }
+    
+    func calculateOffsetRectangeForHideAtEnd() -> CGFloat {
+        -(logoTextSize.width + abs(calculateOffsetOfLogoAtEnd()))
     }
 }
