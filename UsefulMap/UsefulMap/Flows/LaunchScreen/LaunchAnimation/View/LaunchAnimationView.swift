@@ -13,10 +13,6 @@ struct LaunchAnimationView: View {
     
     @StateObject var viewModel: LaunchAnimationViewModel
     
-    let logoSize: CGFloat = SizesConstants.logoSize
-    let decreaseLogo: CGFloat = 3
-    let increaseForAppName: CGFloat = 3
-    
     //MARK: - Initialization
     
     init(isAnimationOnLaunchViewEnded: Binding<Bool>) {
@@ -29,27 +25,28 @@ struct LaunchAnimationView: View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
             Group {
-                AppImages.logoWithoutImageWhiteText
+                AppImages.logoWithoutImageWithWhiteText
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(height: logoSize*0.65)
-                    .offset(x: viewModel.moveLogoAndShowAppName ? logoSize*increaseForAppName/6 : -logoSize*(increaseForAppName-0.5), y: 0)
+                    .frame(height: viewModel.textHeightInLogo)
+                    .background(GeometryGetter(rect: $viewModel.logoTextSize))
+                    .offset(x: viewModel.moveLogoAndShowAppName ? viewModel.calculateOffsetTextAtEnd() : viewModel.calculateOffsetTextOnStartup(), y: 0)
                 Rectangle()
                     .foregroundColor(.black)
-                    .frame(width: logoSize*increaseForAppName, height: logoSize, alignment: .center)
-                    .offset(x: -logoSize*(increaseForAppName-0.5) , y: 0)
+                    .frame(width: viewModel.logoTextSize.width, height: viewModel.logoTextSize.height, alignment: .center)
+                    .offset(x: viewModel.moveLogoAndShowAppName ? viewModel.calculateOffsetRectangeForHideAtEnd() : viewModel.calculateOffsetTextOnStartup(), y: 0)
                 VStack {
                     AppImages.logoWithoutText
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(maxWidth: viewModel.enlargeAndRotateLogo ? logoSize : logoSize/decreaseLogo,
-                               maxHeight: viewModel.enlargeAndRotateLogo ? logoSize : logoSize/decreaseLogo)
-                        .rotationEffect(viewModel.enlargeAndRotateLogo ? Angle(degrees: -20) : Angle(degrees: 20))
-                        .rotationEffect(viewModel.rotateLogo ? Angle(degrees: 20) : Angle(degrees: -20))
-                        .offset(x: viewModel.moveLogoAndShowAppName ? -logoSize*1.5 : 0, y: 0)
+                        .frame(maxWidth: viewModel.enlargeAndRotateLogo ? viewModel.logoSize : viewModel.logoSize/viewModel.decreaseLogo,
+                               maxHeight: viewModel.enlargeAndRotateLogo ? viewModel.logoSize : viewModel.logoSize/viewModel.decreaseLogo)
+                        .rotationEffect(viewModel.enlargeAndRotateLogo ? Angle(degrees: -viewModel.rotationAngle) : Angle(degrees: viewModel.rotationAngle))
+                        .rotationEffect(viewModel.rotateLogo ? Angle(degrees: viewModel.rotationAngle) : Angle(degrees: -viewModel.rotationAngle))
+                        .offset(x: viewModel.moveLogoAndShowAppName ? viewModel.calculateOffsetOfLogoAtEnd() : 0, y: 0)
                 }//-VStack
             }//-Group
-            .padding(.bottom, logoSize)
+            .padding(.bottom, viewModel.logoSize)
             .onAppear(){
                 viewModel.startAnimation()
             }//-onAppear

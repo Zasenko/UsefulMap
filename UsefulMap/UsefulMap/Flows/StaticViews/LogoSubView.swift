@@ -26,7 +26,7 @@ struct LogoSubView: View {
                     .aspectRatio(contentMode: .fill)
                     .shadow(radius: 15)
                     .frame(width: logoSize, height: logoSize)
-                AppImages.logoWithoutImageBlackText
+                AppImages.logoWithoutImageWithBlackText
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(height: logoSize*0.65)

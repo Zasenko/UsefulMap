@@ -74,6 +74,7 @@
 		235CDB78295575D7003B8E93 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235CDB73295575D7003B8E93 /* Comment.swift */; };
 		235CDB79295575D7003B8E93 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 235CDB75295575D7003B8E93 /* CommentView.swift */; };
 		23676571293CE8AB00B4E081 /* Ragistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23676570293CE8AB00B4E081 /* Ragistration.swift */; };
+		23B3620F296D9E2F00964422 /* GeometryGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B3620E296D9E2F00964422 /* GeometryGetter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -146,6 +147,7 @@
 		235CDB73295575D7003B8E93 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		235CDB75295575D7003B8E93 /* CommentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 		23676570293CE8AB00B4E081 /* Ragistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ragistration.swift; sourceTree = "<group>"; };
+		23B3620E296D9E2F00964422 /* GeometryGetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeometryGetter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -623,6 +625,7 @@
 			children = (
 				234D787C293B8CB500212ED8 /* LogoSubView.swift */,
 				0FA7104B294DFE87006B92B5 /* SortingMenu.swift */,
+				23B3620E296D9E2F00964422 /* GeometryGetter.swift */,
 				0F4570EE29537A4400914140 /* CachedImage */,
 			);
 			path = StaticViews;
@@ -930,6 +933,7 @@
 				0F75E340292CF3CC00EE7890 /* User.swift in Sources */,
 				235CDB78295575D7003B8E93 /* Comment.swift in Sources */,
 				0F75E33A292CEF4900EE7890 /* RegistrationView.swift in Sources */,
+				23B3620F296D9E2F00964422 /* GeometryGetter.swift in Sources */,
 				0F4570FB29537BDE00914140 /* MapImageView.swift in Sources */,
 				234D787F293B8D8400212ED8 /* SizesConstants.swift in Sources */,
 				23676571293CE8AB00B4E081 /* Ragistration.swift in Sources */,
